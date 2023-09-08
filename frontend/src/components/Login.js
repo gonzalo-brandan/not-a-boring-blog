@@ -82,8 +82,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -92,7 +90,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
-import { Link as Link1 } from 'react-router-dom';
+//import { Link as Link1 } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -121,6 +119,7 @@ const defaultTheme = createTheme();
 export default function SignIn() {
   const [currentUser, setCurrentUser] = useState();
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
@@ -142,8 +141,9 @@ export default function SignIn() {
     //   password: password,
     // };
     client.post(
-        "/api/login/",
+        "/login/",
         {
+          username: username,
           email: email,
           password: password
         }
@@ -181,6 +181,18 @@ export default function SignIn() {
             Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Username"
+              name="username"
+              autoComplete="username"
+              autoFocus
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
             <TextField
               margin="normal"
               required
