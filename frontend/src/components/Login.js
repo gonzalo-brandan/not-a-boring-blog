@@ -90,6 +90,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
+import AuthService from './AuthService';
+import { useNavigate } from 'react-router-dom';
 //import { Link as Link1 } from 'react-router-dom';
 
 function Copyright(props) {
@@ -117,54 +119,34 @@ const client = axios.create({
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const [currentUser, setCurrentUser] = useState();
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [currentUser, setCurrentUser] = useState(null); // Define currentUser state
 
-  useEffect(() => {
-    client.get("/api/user/")
-    .then(function(res) {
-      console.log(res.data)
-      setCurrentUser(true);
-    })
-    .catch(function(error) {
-      setCurrentUser(false);
-    });
-  }, []);
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // const loginData = {
-    //   email: email,
-    //   password: password,
-    // };
-    client.post(
-        "api/login/",
-        {
-          username: username,
-          email: email,
-          password: password
+
+    AuthService.login(username, email, password)
+      .then(
+        () => {
+          setCurrentUser(true); // Set currentUser state upon successful login
+          navigate('/');
+        },
+        (error) => {
+          setError('Invalid email or password');
         }
-      ).then(function(res) {
-        setCurrentUser(true);
-      })
-      .catch(function(error){
-        setError("Invalid email or password");
-      });
-  };
-
-  function submitLogout(e) {
-    e.preventDefault();
-    client.post(
-      "/api/logout/",
-      {withCredentials: true}
-    ).then(function(res) {
-      setCurrentUser(false);
-    });
+      );
   }
+  const submitLogout = (event) => {
+    event.preventDefault();
 
+    AuthService.logout(); // Call the logout function from your AuthService
+    setCurrentUser(false);
+  };
   if (currentUser) {
     return (
       <div>
