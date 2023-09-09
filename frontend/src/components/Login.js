@@ -141,7 +141,7 @@ export default function SignIn() {
     //   password: password,
     // };
     client.post(
-        "/login/",
+        "api/login/",
         {
           username: username,
           email: email,
@@ -154,11 +154,25 @@ export default function SignIn() {
         setError("Invalid email or password");
       });
   };
+
+  function submitLogout(e) {
+    e.preventDefault();
+    client.post(
+      "/api/logout/",
+      {withCredentials: true}
+    ).then(function(res) {
+      setCurrentUser(false);
+    });
+  }
+
   if (currentUser) {
     return (
       <div>
           <div className="center">
             <h2>You're logged in!</h2>
+            <form onSubmit={e => submitLogout(e)}>
+                  <Button type="submit" variant="light">Log out</Button>
+                </form>
           </div>
         </div>
     );}
