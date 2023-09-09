@@ -117,13 +117,12 @@ const client = axios.create({
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
-
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [currentUser, setCurrentUser] = useState(null); // Define currentUser state
+  const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
 
   const navigate = useNavigate();
 
@@ -132,20 +131,23 @@ export default function SignIn() {
 
     AuthService.login(username, email, password)
       .then(
-        () => {
-          setCurrentUser(true); // Set currentUser state upon successful login
-          navigate('/');
+        (response) => {
+          console.log('Token:', response.data);
+          setCurrentUser(true);
+          navigate('/login');
         },
         (error) => {
           setError('Invalid email or password');
         }
       );
-  }
+  };
+
   const submitLogout = (event) => {
     event.preventDefault();
 
-    AuthService.logout(); // Call the logout function from your AuthService
+    AuthService.logout();
     setCurrentUser(false);
+    delete axios.defaults.headers.common['Authorization'];
   };
   if (currentUser) {
     return (

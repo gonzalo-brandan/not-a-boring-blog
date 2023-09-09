@@ -12,19 +12,24 @@ const AuthService = {
     return client.post('/login/', { username, email, password })
       .then(response => {
         if (response.data.token) {
-          localStorage.setItem('user', JSON.stringify(response.data));
+            localStorage.setItem('token', response.data.token);
         }
         return response.data;
       });
   },
 
   logout: () => {
-    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   },
-
   getCurrentUser: () => {
-    return JSON.parse(localStorage.getItem('user'));
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      axios.defaults.headers.common['Authorization'] = `Token ${storedToken}`;
+      return true; // User is considered authenticated
+    }
+    return false; // User is not authenticated
   },
 };
+
 
 export default AuthService;
