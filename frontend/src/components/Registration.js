@@ -117,8 +117,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -127,6 +125,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
+import { Navigate, Route } from 'react-router-dom';
 
 
 function Copyright(props) {
@@ -179,13 +178,15 @@ export default function SignUp() {
     };
 
     try {
-      const registrationResponse = await axios.post("http://127.0.0.1:8000/api/register/", registrationData);
+      const registrationResponse = await axios.post("http://127.0.0.1:8000/register/", registrationData);
       if (registrationResponse.status === 201) {
+        console.log('registration')
         const loginData = {
+          username: registrationData.username,
           email: registrationData.email,
           password: registrationData.password
         };
-        const loginResponse = await axios.post("http://127.0.0.1:8000/api/login/", loginData);
+        const loginResponse = await axios.post("http://127.0.0.1:8000/login/", loginData);
         if (loginResponse.status === 200) {
           console.log('OK 200')
           setCurrentUser(true)
@@ -215,12 +216,14 @@ export default function SignUp() {
 
     function submitLogout(e) {
       e.preventDefault();
-      client.post(
-        "/api/logout/",
-        {withCredentials: true}
-      ).then(function(res) {
-        setCurrentUser(false);
-      });
+      client.get("/logout/")
+        .then(function(res) {
+          setCurrentUser(false);
+        })
+        .catch(function(error) {
+          // Handle any logout errors here
+          console.error("Logout failed:", error);
+        });
     }
 
 if (currentUser) {
