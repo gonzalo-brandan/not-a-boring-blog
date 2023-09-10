@@ -6,9 +6,14 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import axios from 'axios'
+import AuthService from './AuthService';
+import { useState, useEffect } from 'react';
+
 
 function Header(props) {
-  const { sections, title } = props;
+  const { sections, title, currentUser } = props;
+
 
   return (
     <React.Fragment>
@@ -28,12 +33,16 @@ function Header(props) {
           <SearchIcon />
         </IconButton>
         <div style={{ display: 'flex', gap: '1rem' }}>
-          <Button variant="outlined" size="small">
-            <a href="/login" style={{ textDecoration: 'none' }}>Log in</a>
-          </Button>
-          <Button variant="outlined" size="small">
-            <a href="/register" style={{ textDecoration: 'none' }}>Sign up</a>
-          </Button>
+        {currentUser && (
+            <React.Fragment>
+              <Button variant="outlined" size="small">
+                <a href="/login" style={{ textDecoration: 'none' }}>Log in</a>
+              </Button>
+              <Button variant="outlined" size="small">
+                <a href="/register" style={{ textDecoration: 'none' }}>Sign up</a>
+              </Button>
+            </React.Fragment>
+          )}
         </div>
       </Toolbar>
       <Toolbar
