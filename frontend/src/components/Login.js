@@ -125,16 +125,29 @@ export default function SignIn() {
   const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
 
   const navigate = useNavigate();
-
+  const { getCurrentUser } = AuthService;
+  
+  useEffect(() => {
+    // Check for the user's authentication status when the component mounts
+    const user = getCurrentUser();
+    console.log('Is User Logged In:', user);
+  
+    // Log the token if the user is logged in
+    if (user) {
+      const token = user.token;
+      console.log(localStorage.getItem('token'));
+    }
+    setCurrentUser(user);
+  }, []);
   const handleSubmit = (event) => {
     event.preventDefault();
 
     AuthService.login(username, email, password)
       .then(
         (response) => {
-          console.log('Token:', response.data);
+          console.log(localStorage.getItem('token'));
           setCurrentUser(true);
-          navigate('/login');
+          navigate('/blog');
         },
         (error) => {
           setError('Invalid email or password');
@@ -149,17 +162,17 @@ export default function SignIn() {
     setCurrentUser(false);
     delete axios.defaults.headers.common['Authorization'];
   };
-  if (currentUser) {
-    return (
-      <div>
-          <div className="center">
-            <h2>You're logged in!</h2>
-            <form onSubmit={e => submitLogout(e)}>
-                  <Button type="submit" variant="light">Log out</Button>
-                </form>
-          </div>
-        </div>
-    );}
+  // if (currentUser) {
+  //   return (
+  //     <div>
+  //         <div className="center">
+  //           <h2>You're logged in!</h2>
+  //           <form onSubmit={e => submitLogout(e)}>
+  //                 <Button type="submit" variant="light">Log out</Button>
+  //               </form>
+  //         </div>
+  //       </div>
+  //   );}
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
