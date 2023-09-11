@@ -90,6 +90,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
+import AuthService from './AuthService';
+import { useNavigate } from 'react-router-dom';
 //import { Link as Link1 } from 'react-router-dom';
 
 function Copyright(props) {
@@ -115,53 +117,62 @@ const client = axios.create({
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
-
 export default function SignIn() {
-  const [currentUser, setCurrentUser] = useState();
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
 
+  const navigate = useNavigate();
+  const { getCurrentUser } = AuthService;
+  
   useEffect(() => {
-    client.get("/api/user/")
-    .then(function(res) {
-      console.log(res.data)
-      setCurrentUser(true);
-    })
-    .catch(function(error) {
-      setCurrentUser(false);
-    });
+    // Check for the user's authentication status when the component mounts
+    const user = getCurrentUser();
+    console.log('Is User Logged In:', user);
+  
+    // Log the token if the user is logged in
+    if (user) {
+      const token = user.token;
+      console.log(localStorage.getItem('token'));
+    }
+    setCurrentUser(user);
   }, []);
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    // const loginData = {
-    //   email: email,
-    //   password: password,
-    // };
-    client.post(
-        "/login/",
-        {
-          username: username,
-          email: email,
-          password: password
+
+    AuthService.login(username, email, password)
+      .then(
+        (response) => {
+          console.log(localStorage.getItem('token'));
+          setCurrentUser(true);
+          navigate('/blog');
+        },
+        (error) => {
+          setError('Invalid email or password');
         }
-      ).then(function(res) {
-        setCurrentUser(true);
-      })
-      .catch(function(error){
-        setError("Invalid email or password");
-      });
+      );
   };
-  if (currentUser) {
-    return (
-      <div>
-          <div className="center">
-            <h2>You're logged in!</h2>
-          </div>
-        </div>
-    );}
+
+  const submitLogout = (event) => {
+    event.preventDefault();
+
+    AuthService.logout();
+    setCurrentUser(false);
+    delete axios.defaults.headers.common['Authorization'];
+  };
+  // if (currentUser) {
+  //   return (
+  //     <div>
+  //         <div className="center">
+  //           <h2>You're logged in!</h2>
+  //           <form onSubmit={e => submitLogout(e)}>
+  //                 <Button type="submit" variant="light">Log out</Button>
+  //               </form>
+  //         </div>
+  //       </div>
+  //   );}
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">

@@ -15,7 +15,9 @@ import Footer from './Footer';
 import post1 from './blog-post.1.md';
 import post2 from './blog-post.2.md';
 import post3 from './blog-post.3.md';
-
+import AppBar from './AppBar'
+import { useState } from 'react';
+import AuthService from './AuthService';
 const sections = [
   { title: 'Technology', url: '#' },
   { title: 'Design', url: '#' },
@@ -74,9 +76,13 @@ const sidebar = {
 const defaultTheme = createTheme();
 
 export default function Blog() {
+
+  const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser);
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
+      <AppBar currentUser={currentUser} />
       <Container maxWidth="lg">
         <Header title="Blog" sections={sections} />
         <main>
