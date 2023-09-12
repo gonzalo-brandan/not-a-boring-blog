@@ -127,7 +127,13 @@ function ResponsiveAppBar(props) {
               </Button>
             ))}
           </Box>
-
+          {!currentUser && (
+            <div>
+            <Button color="inherit" href="/login">Login</Button>
+            <Button color="inherit" href="/register">Register</Button>
+            </div>
+          )}
+          {currentUser && (
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -169,7 +175,7 @@ function ResponsiveAppBar(props) {
                 </MenuItem>
               )}
             </Menu>
-          </Box>
+          </Box>)}
         </Toolbar>
       </Container>
     </AppBar>
