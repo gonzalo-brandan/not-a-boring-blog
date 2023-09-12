@@ -128,6 +128,10 @@ import axios from 'axios';
 import { useNavigate, Route } from 'react-router-dom';
 import AuthService from './AuthService';
 
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 function Copyright(props) {
@@ -160,18 +164,14 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
   const navigate = useNavigate();
 
-
-  //   useEffect(() => {
-  //   client.get("/api/user/")
-  //   .then(function(res) {
-  //     setCurrentUser(true);
-  //   })
-  //   .catch(function(error) {
-  //     setCurrentUser(false);
-  //   });
-  // }, []);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const handleRegistration = async (event) => {
     event.preventDefault();
@@ -180,6 +180,8 @@ export default function SignUp() {
       email: email,
       password: password,
     };
+
+    
 
     try {
       const registrationResponse = await axios.post("http://127.0.0.1:8000/register/", registrationData);
@@ -296,17 +298,32 @@ if (currentUser) {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+              <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type={showPassword ? 'text' : 'password'}
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
               </Grid>
             </Grid>
             <Button
