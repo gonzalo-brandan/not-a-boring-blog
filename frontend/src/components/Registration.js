@@ -125,7 +125,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
-import { Navigate, Route } from 'react-router-dom';
+import { useNavigate, Route } from 'react-router-dom';
+import AuthService from './AuthService';
+
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 function Copyright(props) {
@@ -158,16 +164,14 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-    useEffect(() => {
-    client.get("/api/user/")
-    .then(function(res) {
-      setCurrentUser(true);
-    })
-    .catch(function(error) {
-      setCurrentUser(false);
-    });
-  }, []);
+  const navigate = useNavigate();
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const handleRegistration = async (event) => {
     event.preventDefault();
@@ -176,6 +180,8 @@ export default function SignUp() {
       email: email,
       password: password,
     };
+
+    
 
     try {
       const registrationResponse = await axios.post("http://127.0.0.1:8000/register/", registrationData);
@@ -188,8 +194,17 @@ export default function SignUp() {
         };
         const loginResponse = await axios.post("http://127.0.0.1:8000/login/", loginData);
         if (loginResponse.status === 200) {
-          console.log('OK 200')
-          setCurrentUser(true)
+          AuthService.login(username, email, password)
+          .then(
+            (response) => {
+              console.log(localStorage.getItem('token'));
+              setCurrentUser(true);
+              navigate('/blog');
+            },
+            (error) => {
+              setError('Invalid email or password');
+            }
+          );
         }
       }
     } catch (error) {
@@ -253,7 +268,7 @@ if (currentUser) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Register
           </Typography>
           <Box component="form" noValidate onSubmit={handleRegistration} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -283,17 +298,32 @@ if (currentUser) {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+              <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type={showPassword ? 'text' : 'password'}
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
               </Grid>
             </Grid>
             <Button
