@@ -125,7 +125,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
-import { Navigate, Route } from 'react-router-dom';
+import { useNavigate, Route } from 'react-router-dom';
+import AuthService from './AuthService';
+
 
 
 function Copyright(props) {
@@ -158,16 +160,18 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const navigate = useNavigate();
 
-    useEffect(() => {
-    client.get("/api/user/")
-    .then(function(res) {
-      setCurrentUser(true);
-    })
-    .catch(function(error) {
-      setCurrentUser(false);
-    });
-  }, []);
+
+  //   useEffect(() => {
+  //   client.get("/api/user/")
+  //   .then(function(res) {
+  //     setCurrentUser(true);
+  //   })
+  //   .catch(function(error) {
+  //     setCurrentUser(false);
+  //   });
+  // }, []);
 
   const handleRegistration = async (event) => {
     event.preventDefault();
@@ -188,8 +192,17 @@ export default function SignUp() {
         };
         const loginResponse = await axios.post("http://127.0.0.1:8000/login/", loginData);
         if (loginResponse.status === 200) {
-          console.log('OK 200')
-          setCurrentUser(true)
+          AuthService.login(username, email, password)
+          .then(
+            (response) => {
+              console.log(localStorage.getItem('token'));
+              setCurrentUser(true);
+              navigate('/blog');
+            },
+            (error) => {
+              setError('Invalid email or password');
+            }
+          );
         }
       }
     } catch (error) {
@@ -253,7 +266,7 @@ if (currentUser) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Register
           </Typography>
           <Box component="form" noValidate onSubmit={handleRegistration} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
