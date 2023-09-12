@@ -92,6 +92,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import AuthService from './AuthService';
 import { useNavigate } from 'react-router-dom';
+import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 //import { Link as Link1 } from 'react-router-dom';
 
 function Copyright(props) {
@@ -118,6 +125,8 @@ const client = axios.create({
 
 const defaultTheme = createTheme();
 export default function SignIn() {
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -127,10 +136,12 @@ export default function SignIn() {
   const navigate = useNavigate();
   const { getCurrentUser } = AuthService;
   
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   useEffect(() => {
     // Check for the user's authentication status when the component mounts
     const user = getCurrentUser();
-    console.log('Is User Logged In:', user);
   
     // Log the token if the user is logged in
     if (user) {
@@ -196,7 +207,7 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
+              id="username"
               label="Username"
               name="username"
               autoComplete="username"
@@ -222,12 +233,46 @@ export default function SignIn() {
               fullWidth
               name="password"
               label="Password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               id="password"
               autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
+            {/* <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={showPassword ? 'text' : 'password'}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Password"
+          />
+        </FormControl> */}
             <p className="error">{error}</p>
             <Button
               type="submit"
