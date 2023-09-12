@@ -93,9 +93,9 @@ import axios from 'axios';
 import AuthService from './AuthService';
 import { useNavigate } from 'react-router-dom';
 import FormControl from '@mui/material/FormControl';
-import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
+import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -150,6 +150,7 @@ export default function SignIn() {
     }
     setCurrentUser(user);
   }, []);
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -166,24 +167,7 @@ export default function SignIn() {
       );
   };
 
-  const submitLogout = (event) => {
-    event.preventDefault();
 
-    AuthService.logout();
-    setCurrentUser(false);
-    delete axios.defaults.headers.common['Authorization'];
-  };
-  // if (currentUser) {
-  //   return (
-  //     <div>
-  //         <div className="center">
-  //           <h2>You're logged in!</h2>
-  //           <form onSubmit={e => submitLogout(e)}>
-  //                 <Button type="submit" variant="light">Log out</Button>
-  //               </form>
-  //         </div>
-  //       </div>
-  //   );}
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -200,7 +184,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Log In
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -290,7 +274,7 @@ export default function SignIn() {
               </Grid>
               <Grid item>
                 <Link href="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {"Don't have an account? Register"}
                 </Link>
               </Grid>
             </Grid>
