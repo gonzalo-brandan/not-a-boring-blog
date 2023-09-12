@@ -13,9 +13,10 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
+import AuthService from './AuthService';
 
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Account', 'Dashboard'];
 
 function ResponsiveAppBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -159,6 +160,14 @@ function ResponsiveAppBar(props) {
                   <Typography textAlign="center">Login</Typography>
                 </MenuItem>
               )}
+              {currentUser && (
+                <MenuItem key="Logout" onClick={() => {
+                  AuthService.logout(); // Call the logout method
+                  handleCloseUserMenu();
+                  }}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
+              )}
             </Menu>
           </Box>
         </Toolbar>
@@ -166,4 +175,6 @@ function ResponsiveAppBar(props) {
     </AppBar>
   );
 }
+console.log(`current user: ${AuthService.getCurrentUser()}`)  
+
 export default ResponsiveAppBar;
