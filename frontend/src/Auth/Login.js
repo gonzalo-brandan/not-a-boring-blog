@@ -1,81 +1,3 @@
-// // components/Login.js
-// import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
-// import axios from 'axios';
-// import { Container } from "@mui/material"
-
-// axios.defaults.xsrfCookieName = 'csrftoken';
-// axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-// axios.defaults.withCredentials = true;
-
-// const client = axios.create({
-//   baseURL: "http://127.0.0.1:8000"
-// });
-
-// function Login() {
-//   const [currentUser, setCurrentUser] = useState();
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [error, setError] = useState('');
-
-//   const handleLogin = async (e) => {
-//     e.preventDefault();
-//     client.post(
-//         "/api/login/",
-//         {
-//           email: email,
-//           password: password
-//         }
-//       ).then(function(res) {
-//         setCurrentUser(true);
-//       })
-//       .catch(function(error){
-//         setError("Invalid email or password");
-//       });
-
-      
-//     }
-
-//   return (
-//     <Container sx={{bgcolor: "tomato", height: "100vh"}}>
-//     <div>
-//     {currentUser ? (
-//       <div>
-//         <h2>Welcome, User!</h2>
-//         <p>You are already logged in.</p>
-//       </div>
-//     ) : (
-//     <div>
-//       <h2>Login</h2>
-//       <form onSubmit={handleLogin}>
-//         <input
-//           type="email"
-//           placeholder="Email"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           required
-//         />
-//         <input
-//           type="password"
-//           placeholder="Password"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//           required
-//         />
-//         <button type="submit">Login</button>
-//       </form>
-//       <p className="error">{error}</p>
-//       <p>
-//         Don't have an account? <Link to="/register">Register here</Link>
-//       </p>
-//     </div>
-//           )}
-//           </div>
-//           </Container>
-//   );
-// }
-
-// export default Login;
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -92,14 +14,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import AuthService from './AuthService';
 import { useNavigate } from 'react-router-dom';
-import FormControl from '@mui/material/FormControl';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-//import { Link as Link1 } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -127,8 +45,7 @@ const defaultTheme = createTheme();
 export default function SignIn() {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
+  const [usernameOrEmail, setUsernameOrEmail] = useState(''); // Combine username and email
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
@@ -154,11 +71,24 @@ export default function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const isEmail = usernameOrEmail.includes('@');
+    const username = isEmail ? '' : usernameOrEmail;
+    const email = isEmail ? usernameOrEmail : '';
+    
+
+    const loginData = {
+      username: username,
+      email: email,
+      password: password,
+    };
+
     AuthService.login(username, email, password)
       .then(
         (response) => {
           console.log(localStorage.getItem('token'));
-          setCurrentUser(true);
+          console.log(`current user: ${AuthService.getCurrentUser()}`)  
+
+          // setCurrentUser(true);
           navigate('/blog');
         },
         (error) => {
@@ -187,29 +117,17 @@ export default function SignIn() {
             Log In
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
             <TextField
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="usernameOrEmail"
+              label="Username or Email"
+              name="usernameOrEmail"
+              autoComplete="username email"
               autoFocus
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={usernameOrEmail}
+              onChange={(e) => setUsernameOrEmail(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -237,26 +155,6 @@ export default function SignIn() {
                 ),
               }}
             />
-            {/* <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={showPassword ? 'text' : 'password'}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl> */}
             <p className="error">{error}</p>
             <Button
               type="submit"
