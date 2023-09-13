@@ -1,81 +1,3 @@
-// // components/Login.js
-// import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
-// import axios from 'axios';
-// import { Container } from "@mui/material"
-
-// axios.defaults.xsrfCookieName = 'csrftoken';
-// axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-// axios.defaults.withCredentials = true;
-
-// const client = axios.create({
-//   baseURL: "http://127.0.0.1:8000"
-// });
-
-// function Login() {
-//   const [currentUser, setCurrentUser] = useState();
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [error, setError] = useState('');
-
-//   const handleLogin = async (e) => {
-//     e.preventDefault();
-//     client.post(
-//         "/api/login/",
-//         {
-//           email: email,
-//           password: password
-//         }
-//       ).then(function(res) {
-//         setCurrentUser(true);
-//       })
-//       .catch(function(error){
-//         setError("Invalid email or password");
-//       });
-
-      
-//     }
-
-//   return (
-//     <Container sx={{bgcolor: "tomato", height: "100vh"}}>
-//     <div>
-//     {currentUser ? (
-//       <div>
-//         <h2>Welcome, User!</h2>
-//         <p>You are already logged in.</p>
-//       </div>
-//     ) : (
-//     <div>
-//       <h2>Login</h2>
-//       <form onSubmit={handleLogin}>
-//         <input
-//           type="email"
-//           placeholder="Email"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           required
-//         />
-//         <input
-//           type="password"
-//           placeholder="Password"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//           required
-//         />
-//         <button type="submit">Login</button>
-//       </form>
-//       <p className="error">{error}</p>
-//       <p>
-//         Don't have an account? <Link to="/register">Register here</Link>
-//       </p>
-//     </div>
-//           )}
-//           </div>
-//           </Container>
-//   );
-// }
-
-// export default Login;
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -123,8 +45,7 @@ const defaultTheme = createTheme();
 export default function SignIn() {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
+  const [usernameOrEmail, setUsernameOrEmail] = useState(''); // Combine username and email
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
@@ -149,6 +70,17 @@ export default function SignIn() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const isEmail = usernameOrEmail.includes('@');
+    const username = isEmail ? '' : usernameOrEmail;
+    const email = isEmail ? usernameOrEmail : '';
+    
+
+    const loginData = {
+      username: username,
+      email: email,
+      password: password,
+    };
 
     AuthService.login(username, email, password)
       .then(
@@ -185,29 +117,17 @@ export default function SignIn() {
             Log In
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
             <TextField
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="usernameOrEmail"
+              label="Username or Email"
+              name="usernameOrEmail"
+              autoComplete="username email"
               autoFocus
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={usernameOrEmail}
+              onChange={(e) => setUsernameOrEmail(e.target.value)}
             />
             <TextField
               margin="normal"
