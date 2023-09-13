@@ -8,9 +8,9 @@ import MainFeaturedPost from './MainFeaturedPost';
 import FeaturedPost from './FeaturedPost';
 import Main from './Main';
 import Footer from './Footer';
-import post1 from './blog-post.1.md';
-import post2 from './blog-post.2.md';
-import post3 from './blog-post.3.md';
+import post1 from '../Assets/Posts/blog-post.1.md';
+import post2 from '../Assets/Posts/blog-post.2.md';
+import post3 from '../Assets/Posts/blog-post.3.md';
 import AppBar from './AppBar'
 import { useState } from 'react';
 import AuthService from './AuthService';
