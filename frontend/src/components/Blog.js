@@ -15,6 +15,7 @@ import AppBar from './AppBar'
 import { useState, useEffect } from 'react';
 import AuthService from './AuthService';
 import axios from 'axios'
+import { fetchPosts } from './fetchPosts';
 
 const sections = [
   { title: 'Technology', url: '#' },
@@ -73,7 +74,7 @@ export default function Blog() {
 
   useEffect(() => {
     // Fetch posts when the component mounts
-    axios.get("http://127.0.0.1:8000/public_posts/")
+    fetchPosts()
       .then((response) => {
         setPosts1(response.data);
       })
@@ -82,7 +83,6 @@ export default function Blog() {
       });
   }, []);
 
-  console.log(posts1[0])
 
   return (
     <ThemeProvider theme={defaultTheme}>
