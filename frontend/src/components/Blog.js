@@ -13,7 +13,7 @@ import post2 from './blog-post.2.md';
 import post3 from './blog-post.3.md';
 import AppBar from './AppBar'
 import { useState } from 'react';
-import AuthService from './AuthService';
+import AuthService from '../Auth/AuthService';
 const sections = [
   { title: 'Technology', url: '#' },
   { title: 'Design', url: '#' },
