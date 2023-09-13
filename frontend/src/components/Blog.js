@@ -12,8 +12,10 @@ import post1 from '../Assets/Posts/blog-post.1.md';
 import post2 from '../Assets/Posts/blog-post.2.md';
 import post3 from '../Assets/Posts/blog-post.3.md';
 import AppBar from './AppBar'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AuthService from './AuthService';
+import axios from 'axios'
+
 const sections = [
   { title: 'Technology', url: '#' },
   { title: 'Design', url: '#' },
@@ -27,6 +29,8 @@ const sections = [
   { title: 'Travel', url: '#' },
 ];
 
+
+
 const mainFeaturedPost = {
   title: 'Title of a longer featured blog post',
   description:
@@ -36,24 +40,24 @@ const mainFeaturedPost = {
   linkText: 'Continue reading…',
 };
 
-const featuredPosts = [
-  {
-    title: 'Featured post',
-    date: 'Nov 12',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random?wallpapers',
-    imageLabel: 'Image Text',
-  },
-  {
-    title: 'Post title',
-    date: 'Nov 11',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random?wallpapers',
-    imageLabel: 'Image Text',
-  },
-];
+// const featuredPosts = [
+//   {
+//     title: 'Featured post',
+//     date: 'Nov 12',
+//     description:
+//       'This is a wider card with supporting text below as a natural lead-in to additional content.',
+//     image: 'https://source.unsplash.com/random?wallpapers',
+//     imageLabel: 'Image Text',
+//   },
+//   {
+//     title: 'Post title',
+//     date: 'Nov 11',
+//     description:
+//       'This is a wider card with supporting text below as a natural lead-in to additional content.',
+//     image: 'https://source.unsplash.com/random?wallpapers',
+//     imageLabel: 'Image Text',
+//   },
+// ];
 
 const posts = [post1, post2, post3];
 
@@ -65,6 +69,21 @@ export default function Blog() {
 
   const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser);
 
+  const [posts1, setPosts1] = useState([]);
+
+  useEffect(() => {
+    // Fetch posts when the component mounts
+    axios.get("http://127.0.0.1:8000/public_posts/")
+      .then((response) => {
+        setPosts1(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching posts:", error);
+      });
+  }, []);
+
+  console.log(posts1[0])
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -74,8 +93,8 @@ export default function Blog() {
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>
-            {featuredPosts.map((post) => (
-              <FeaturedPost key={post.title} post={post} />
+            {posts1.map((posts1) => (
+              <FeaturedPost key={posts1.title} post={posts1} />
             ))}
           </Grid>
         </main>
