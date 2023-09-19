@@ -92,11 +92,11 @@ export default function Blog() {
         <Header title="Not Boring Blog" sections={sections} />
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
-          
+          <Grid container spacing={4}>
             {posts1.map((posts1) => (
               <FeaturedPost key={posts1.title}   linkText={'Continue reading…'} image={'https://source.unsplash.com/random?wallpapers'} post={posts1} />
             ))}
-          
+          </Grid>
         </main>
       </Container>
       <Footer
