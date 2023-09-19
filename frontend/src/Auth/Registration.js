@@ -212,10 +212,11 @@ export default function SignUp() {
           // If the error has a response from the server, it's likely a validation error
           const errorData = error.response.data;
           
-          console.log(`validation error: ${error.response.data}`)
-          if (errorData.error === 'Email already exists') {
+          console.log(`validation error: ${JSON.stringify(error.response.data, null, 2)}`)
+
+          if (errorData.error === 'Email already exists.') {
             setError('Email already exists');
-          } else if (errorData.error === 'Username already exists') {
+          } else if (errorData.error === 'Username already exists.') {
             setError('Username already exists');
           } else if (errorData.error === 'Password must have at least 8 characters and special characters.') {
             setError('Password must have at least 8 characters and special characters.');
@@ -326,6 +327,7 @@ if (currentUser) {
             />
               </Grid>
             </Grid>
+            <p className="error">{error}</p>
             <Button
               type="submit"
               fullWidth
@@ -334,7 +336,6 @@ if (currentUser) {
             >
               Sign Up
             </Button>
-            <p className="error">{error}</p>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">
