@@ -6,21 +6,25 @@ import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Chip from '@mui/material/Chip';
+import Avatar from '@mui/material/Avatar';
 
 
 function FeaturedPost(props) {
   const { post } = props;
 
+
   return (
-<Grid item xs={12} md={6} style={{ marginBottom: '30px' }}>
-<CardActionArea component="a" href="#">
-  <Card sx={{ display: 'flex' }}>
+
+    <Grid item xs={12} md={6} style={{ marginBottom: '30px' }}>
+<CardActionArea component="a" href={`/post_detail/${post.id}`}>
     <CardMedia
       component="img"
-      sx= {{ width: 160, display: { xs: 'none', sm: 'block' } }}
+      sx= {{ height: 240, display: { sm: 'block' } }}
       image={props.image}
       alt={post.imageLabel}
     />
+  <Card sx={{ display: 'flex', flexDirection: 'column', maxHeight: 250 }}>
     <CardContent sx={{ flex: 1 }}>
       <Typography component="h2" variant="h5">
         {post.title}
@@ -34,6 +38,15 @@ function FeaturedPost(props) {
       <Typography variant="subtitle1" color="primary">
         Continue reading...
       </Typography>
+    </CardContent>
+    <CardContent sx={{ display: 'flex', gap: '0.5rem', justifyContent: 'left'}}>
+      <Chip label={post.category} />
+      <Chip label={post.created_at} />
+      <Chip 
+       avatar={<Avatar alt="Author" src="/static/images/avatar/1.jpg" />}
+       label={post.user_id} 
+       />
+
     </CardContent>
   </Card>
 </CardActionArea>
