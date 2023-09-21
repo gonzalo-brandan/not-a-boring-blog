@@ -61,7 +61,7 @@ export default function PostPage() {
 
   useEffect(() => {
     // Fetch the post data based on postId
-    axios.get(`http://127.0.0.1:8000/post_detail/${postId}/`)
+    axios.get(`http://127.0.0.1:8000/post/post_detail/${postId}/`)
       .then(response => {
         setPost(response.data); // Update the state with the fetched post data
       })
@@ -89,7 +89,7 @@ export default function PostPage() {
         <Header title="Blog" sections={sections} />
         <main>
             <Grid container spacing={5} sx={{ mt: 3 }}>
-            <Main title={post.title} post={post.title} />
+            <Main title={post.title} description={post.description} />
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}
