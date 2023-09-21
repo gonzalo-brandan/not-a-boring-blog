@@ -4,6 +4,7 @@ import Login from './Auth/Login';
 import Registration from './Auth/Registration';
 import Blog from './components/Blog';
 import PostPage from './components/PostPage';
+import Users from './pages/Users';
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/post/n" element={<PostPage />} />
+        <Route path="/post_detail/:postId" element={<PostPage />} />
+        <Route path="/users" element={<Users />} />
       </Routes>
     </Router>
   );

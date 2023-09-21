@@ -18,7 +18,13 @@ import AuthService from './AuthService';
 import { useState } from 'react'
 
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = [
+  { name: 'Products', url: '/products' },
+  { name: 'Pricing', url: '/pricing' },
+  { name: 'Blog', url: '/blog' },
+  { name: 'Users', url: '/users' },
+];
+
 const settings = ['Profile', 'Account', 'Dashboard'];
 
 function ResponsiveAppBar() {
@@ -97,8 +103,10 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                  <Link to={page.url} style={{ textDecoration: 'none'}}>
+                   <Typography textAlign="center">{page.name}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -125,11 +133,12 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.name}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
+                href={page.url}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
