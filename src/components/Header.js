@@ -17,38 +17,10 @@ function Header(props) {
 
   return (
     <React.Fragment>
-      <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Button size="small">Subscribe</Button>
-        <Typography
-          component="h2"
-          variant="h5"
-          color="inherit"
-          align="center"
-          noWrap
-          sx={{ flex: 1 }}
-        >
-          {title}
-        </Typography>
-        <IconButton>
-          <SearchIcon />
-        </IconButton>
-        <div style={{ display: 'flex', gap: '1rem' }}>
-        {currentUser && (
-            <React.Fragment>
-              <Button variant="outlined" size="small">
-                <a href="/login" style={{ textDecoration: 'none' }}>Log in</a>
-              </Button>
-              <Button variant="outlined" size="small">
-                <a href="/register" style={{ textDecoration: 'none' }}>Sign up</a>
-              </Button>
-            </React.Fragment>
-          )}
-        </div>
-      </Toolbar>
       <Toolbar
         component="nav"
         variant="dense"
-        sx={{ justifyContent: 'space-between', overflowX: 'auto' }}
+        sx={{ justifyContent: 'space-between', overflowX: 'auto', mt: 2}}
       >
         {sections.map((section) => (
           <Link
