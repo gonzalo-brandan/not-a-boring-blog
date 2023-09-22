@@ -61,7 +61,7 @@ export default function PostPage() {
 
   useEffect(() => {
     // Fetch the post data based on postId
-    axios.get(`http://127.0.0.1:8000/post/post_detail/${postId}/`)
+    axios.get(`http://3.76.116.201/post/post_detail/${postId}/`)
       .then(response => {
         setPost(response.data); // Update the state with the fetched post data
       })
