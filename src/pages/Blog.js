@@ -3,16 +3,16 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Header from './Header';
-import FeaturedPost from './FeaturedPost';import Footer from './Footer';
+import Header from '../components/Header';
+import FeaturedPost from '../components/FeaturedPost';import Footer from '../components/Footer';
 import post1 from '../Assets/Posts/blog-post.1.md';
 import post2 from '../Assets/Posts/blog-post.2.md';
 import post3 from '../Assets/Posts/blog-post.3.md';
-import AppBar from './AppBar'
+import AppBar from '../components/AppBar'
 
 
 import { useState, useEffect } from 'react';
-import AuthService from './AuthService';import { fetchPosts } from './fetchPosts';
+import AuthService from '../components/AuthService';import { fetchPosts } from '../components/fetchPosts';
 
 const sections = [
   { title: 'Technology', url: '#' },

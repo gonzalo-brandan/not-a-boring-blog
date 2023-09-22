@@ -6,6 +6,8 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
+import RelatedPostCard from './RelatedPostCard'
+
 function Sidebar(props) {
   const { archives, description, social, title } = props;
 
@@ -34,15 +36,10 @@ function Sidebar(props) {
         </Link>
       ))}
       </Paper>
-      <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
+      <Typography variant="h6" gutterBottom sx={{ mt: 3, mb: 3 }}>
         Related Posts
-      </Typography>
-      {archives.map((archive) => (
-        <Link display="block" variant="body1" href={archive.url} key={archive.title}>
-          {archive.title}
-        </Link>
-      ))}
-      
+      </Typography>      
+      <RelatedPostCard />
     </Grid>
   );
 }

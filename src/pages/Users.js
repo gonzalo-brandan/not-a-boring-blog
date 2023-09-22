@@ -15,7 +15,7 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppBar from '../components/AppBar'
-import { fetchUsers } from './fetchUsers';
+import { fetchUsers } from '../components/fetchUsers';
 import { useState, useEffect } from 'react';
 
 

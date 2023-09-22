@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import AppBar from './AppBar';
+import AppBar from '../components/AppBar';
 import axios from 'axios';
 
 import Grid from '@mui/material/Grid';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import Header from './Header';
+import Header from '../components/Header';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
-import Main from './Main';
+import Main from '../components/Main';
 
-import Sidebar from './Sidebar';
-import Footer from './Footer';
+import Sidebar from '../components/PostPage/Sidebar';
+import Footer from '../components/Footer';
 
 const defaultTheme = createTheme();
 
@@ -89,7 +89,7 @@ export default function PostPage() {
         <Header title="Blog" sections={sections} />
         <main>
             <Grid container spacing={5} sx={{ mt: 3 }}>
-            <Main title={post.title} description={post.description} />
+            <Main category={post.category} author={post.author} title={post.title} description={post.description} />
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}
