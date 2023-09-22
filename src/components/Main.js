@@ -6,7 +6,7 @@ import Divider from '@mui/material/Divider';
 import Markdown from './Markdown';
 
 function Main(props) {
-  const { posts, title } = props;
+  const { author, description, title, category } = props;
 
   return (
     <Grid
@@ -19,22 +19,29 @@ function Main(props) {
         },
       }}
     >
-      <Typography variant="h6" gutterBottom>
+
+      <Typography variant="h3" >
         {title}
       </Typography>
-      <Divider />
-      {posts.map((post) => (
-        <Markdown className="markdown" key={post.substring(0, 40)}>
-          {post}
-        </Markdown>
-      ))}
+      <Typography variant="h7" gutterBottom>
+        By {author}
+      </Typography>
+      <Divider sx={{mb:3}} />
+      {description && (
+      <Markdown sx={{mt:3}}className="markdown" >
+        {description}
+      </Markdown>
+    )}
+
     </Grid>
   );
 }
 
 Main.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.string).isRequired,
+  description: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
 };
 
 export default Main;
