@@ -1,13 +1,16 @@
+import './FeaturedPost.css'
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
+import { Grid, Button } from '@mui/material';
+
 
 
 function FeaturedPost(props) {
@@ -38,21 +41,37 @@ function FeaturedPost(props) {
       <Typography variant="subtitle1" color="primary">
         Continue reading...
       </Typography>
-    </CardContent>
+    </CardContent> 
     <CardContent sx={{ display: 'flex', gap: '0.5rem', justifyContent: 'left'}}>
       <Chip label={post.category} />
       <Chip label={post.created_at} />
       <Chip 
        avatar={<Avatar alt="Author" src="/static/images/avatar/1.jpg" />}
-       label={post.user_id} 
+       label={post.author} 
        />
 
     </CardContent>
+    {/* <CardContent>
+      <Grid container columnSpacing={{xs:2,sm:3,md:4}}>
+      <Grid className='dci' xs={6} md={6}>
+        <div className='button-special'>
+          <div>
+          <h2>Hello</h2>
+          </div>
+        </div>
+        <div>
+        <div>
+          <h2>Hello</h2>
+          </div>
+        </div>
+      </Grid>
+      </Grid>
+    </CardContent> */}
   </Card>
 </CardActionArea>
 </Grid>
   );
-}
+} 
 
 FeaturedPost.propTypes = {
   post: PropTypes.shape({
@@ -65,3 +84,4 @@ FeaturedPost.propTypes = {
 };
 
 export default FeaturedPost;
+
