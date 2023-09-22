@@ -4,19 +4,15 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Header from './Header';
-import MainFeaturedPost from './MainFeaturedPost';
-import FeaturedPost from './FeaturedPost';
-import Main from './Main';
-import Footer from './Footer';
+import FeaturedPost from './FeaturedPost';import Footer from './Footer';
 import post1 from '../Assets/Posts/blog-post.1.md';
 import post2 from '../Assets/Posts/blog-post.2.md';
 import post3 from '../Assets/Posts/blog-post.3.md';
 import AppBar from './AppBar'
 
+
 import { useState, useEffect } from 'react';
-import AuthService from './AuthService';
-import axios from 'axios'
-import { fetchPosts } from './fetchPosts';
+import AuthService from './AuthService';import { fetchPosts } from './fetchPosts';
 
 const sections = [
   { title: 'Technology', url: '#' },
@@ -41,25 +37,6 @@ const mainFeaturedPost = {
   imageText: 'main image description',
   linkText: 'Continue reading…',
 };
-
-// const featuredPosts = [
-//   {
-//     title: 'Featured post',
-//     date: 'Nov 12',
-//     description:
-//       'This is a wider card with supporting text below as a natural lead-in to additional content.',
-//     image: 'https://source.unsplash.com/random?wallpapers',
-//     imageLabel: 'Image Text',
-//   },
-//   {
-//     title: 'Post title',
-//     date: 'Nov 11',
-//     description:
-//       'This is a wider card with supporting text below as a natural lead-in to additional content.',
-//     image: 'https://source.unsplash.com/random?wallpapers',
-//     imageLabel: 'Image Text',
-//   },
-// ];
 
 const posts = [post1, post2, post3];
 
@@ -92,11 +69,11 @@ export default function Blog() {
       <Container maxWidth="lg">
         <Header title="Not Boring Blog" sections={sections} />
         <main>
-          <MainFeaturedPost post={mainFeaturedPost} />
-          <Grid container spacing={4}>
+          <Grid sx={{mt: 1}} container spacing={4}>
             {posts1.map((posts1) => (
               <FeaturedPost key={posts1.title}   linkText={'Continue reading…'} image={'https://source.unsplash.com/random?wallpapers'} post={posts1} />
-            ))}
+            ))
+            }
           </Grid>
         </main>
       </Container>
