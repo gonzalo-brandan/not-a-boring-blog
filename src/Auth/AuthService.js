@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://3.76.116.201/';
+const API_URL = 'http://127.0.0.1:8000/';
 
 const client = axios.create({
   baseURL: API_URL,
@@ -9,7 +9,7 @@ const client = axios.create({
 
 const AuthService = {
   login: (username, email, password) => {
-    return client.post('/login/', { username, email, password })
+    return client.post('/user/login/', { username, email, password })
       .then(response => {
         if (response.data.token) {
             localStorage.setItem('token', response.data.token);

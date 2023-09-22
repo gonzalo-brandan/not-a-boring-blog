@@ -37,7 +37,7 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
 const client = axios.create({
-  baseURL: "http://3.76.116.201/"
+  baseURL: "http://127.0.0.1:8000/user/"
 });
 // TODO remove, this demo shouldn't need to reset the theme.
 
