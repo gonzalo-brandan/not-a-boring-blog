@@ -22,19 +22,6 @@ const sidebar = {
   title: 'About The Author',
   description:
     'Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.',
-  archives: [
-    { title: 'March 2020', url: '#' },
-    { title: 'February 2020', url: '#' },
-    { title: 'January 2020', url: '#' },
-    { title: 'November 1999', url: '#' },
-    { title: 'October 1999', url: '#' },
-    { title: 'September 1999', url: '#' },
-    { title: 'August 1999', url: '#' },
-    { title: 'July 1999', url: '#' },
-    { title: 'June 1999', url: '#' },
-    { title: 'May 1999', url: '#' },
-    { title: 'April 1999', url: '#' },
-  ],
   social: [
     { name: 'GitHub', icon: GitHubIcon },
     { name: 'Twitter', icon: TwitterIcon },
@@ -60,25 +47,15 @@ export default function PostPage() {
   const [post, setPost] = useState({});
 
   useEffect(() => {
-    // Fetch the post data based on postId
     axios.get(`http://127.0.0.1:8000/post/post_detail/${postId}/`)
       .then(response => {
-        setPost(response.data); // Update the state with the fetched post data
+        setPost(response.data); 
       })
       .catch(error => {
         console.error('Error fetching post data:', error);
       });
-  }, [postId]); // Fetch data whenever postId changes
+  }, [postId]); 
 
-//   return (
-//     <div>
-//       <AppBar />
-//       {/* Render the post content using the 'post' state */}
-//       <h1>{post.title}</h1>
-//       {/* ... other post details ... */}
-//     </div>
-//   );
-// }
 
   return (
     
