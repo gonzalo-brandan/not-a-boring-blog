@@ -28,7 +28,7 @@ function Header(props) {
       <Toolbar
         component="nav"
         variant="dense"
-        sx={{ justifyContent: 'space-between', overflowX: 'auto', mt: 2}}
+        sx={{  justifyContent: 'space-between', overflowX: 'auto', mt: 2}}
       >
         {sections.map((section) => (
           // <Link
@@ -42,7 +42,7 @@ function Header(props) {
           // >
           //   {section.title}
           // </Link>
-          <Chip label={section.title} onClick={handleClick} />
+          <Chip label={section.title} variant="outlined" color="primary" onClick={handleClick} />
         ))}
       </Toolbar>
     </React.Fragment>
