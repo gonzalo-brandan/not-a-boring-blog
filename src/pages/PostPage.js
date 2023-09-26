@@ -47,7 +47,7 @@ export default function PostPage() {
   const [post, setPost] = useState({});
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/post/post_detail/${postId}/`)
+    axios.get(`https://www.not-a-boring-blog.net/post/post_detail/${postId}/`)
       .then(response => {
         setPost(response.data); 
       })

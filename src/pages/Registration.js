@@ -39,7 +39,7 @@ axios.defaults.withCredentials = true;
 
 
 const client = axios.create({
-  baseURL: "http://127.0.0.1:8000/user/"
+  baseURL: "https://www.not-a-boring-blog.net/user/"
 });
 
 const defaultTheme = createTheme();
@@ -71,7 +71,7 @@ export default function SignUp() {
     
 
     try {
-      const registrationResponse = await axios.post("http://127.0.0.1:8000/user/register/", registrationData);
+      const registrationResponse = await axios.post("https://www.not-a-boring-blog.net/user/register/", registrationData);
       if (registrationResponse.status === 201) {
         console.log('registration')
         const loginData = {
@@ -79,7 +79,7 @@ export default function SignUp() {
           email: registrationData.email,
           password: registrationData.password
         };
-        const loginResponse = await axios.post("http://127.0.0.1:8000/user/login/", loginData);
+        const loginResponse = await axios.post("https://www.not-a-boring-blog.net/user/login/", loginData);
         if (loginResponse.status === 200) {
           AuthService.login(username, email, password)
           .then(
