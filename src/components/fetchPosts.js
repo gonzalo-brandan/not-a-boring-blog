@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export function fetchPosts() {
-  return axios.get('http://3.76.116.201/post/public_posts/');
+  return axios.get('http://127.0.0.1:8000/post/public_posts/');
 }

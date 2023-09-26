@@ -9,58 +9,40 @@ import Link from '@mui/material/Link';
 import axios from 'axios'
 import AuthService from '../Auth/AuthService';
 import { useState, useEffect } from 'react';
-
+import Chip from '@mui/material/Chip';
+import { useNavigate } from 'react-router-dom';
 
 function Header(props) {
   const { sections, title, currentUser } = props;
 
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    // Your custom logic to handle the click event goes here
+    console.log('Chip clicked!');
+    navigate('/blog')
+  };
 
   return (
     <React.Fragment>
-      <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Button size="small">Subscribe</Button>
-        <Typography
-          component="h2"
-          variant="h5"
-          color="inherit"
-          align="center"
-          noWrap
-          sx={{ flex: 1 }}
-        >
-          {title}
-        </Typography>
-        <IconButton>
-          <SearchIcon />
-        </IconButton>
-        <div style={{ display: 'flex', gap: '1rem' }}>
-        {currentUser && (
-            <React.Fragment>
-              <Button variant="outlined" size="small">
-                <a href="/login" style={{ textDecoration: 'none' }}>Log in</a>
-              </Button>
-              <Button variant="outlined" size="small">
-                <a href="/register" style={{ textDecoration: 'none' }}>Sign up</a>
-              </Button>
-            </React.Fragment>
-          )}
-        </div>
-      </Toolbar>
       <Toolbar
         component="nav"
         variant="dense"
-        sx={{ justifyContent: 'space-between', overflowX: 'auto' }}
+        sx={{  justifyContent: 'space-between', overflowX: 'auto', mt: 2}}
       >
         {sections.map((section) => (
-          <Link
-            color="inherit"
-            noWrap
-            key={section.title}
-            variant="body2"
-            href={section.url}
-            sx={{ p: 1, flexShrink: 0 }}
-          >
-            {section.title}
-          </Link>
+          // <Link
+          //   underline="none"
+          //   color="inherit"
+          //   noWrap
+          //   key={section.title}
+          //   variant="body2"
+          //   href={section.url}
+          //   sx={{ p: 1, flexShrink: 0 }}
+          // >
+          //   {section.title}
+          // </Link>
+          <Chip label={section.title} variant="outlined" color="primary" onClick={handleClick} />
         ))}
       </Toolbar>
     </React.Fragment>
