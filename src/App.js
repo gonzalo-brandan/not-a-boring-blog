@@ -5,6 +5,7 @@ import Registration from './pages/Registration';
 import Blog from './pages/Blog';
 import PostPage from './pages/PostPage';
 import Users from './pages/Users';
+import CreatePost from './pages/CreatePost'
 
 function App() {
   return (
@@ -12,9 +13,10 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
-        <Route path="/blog" element={<Blog />} />
+        <Route path="/" element={<Blog />} />
         <Route path="/post_detail/:postId" element={<PostPage />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/create_post" element={<CreatePost />} />
       </Routes>
     </Router>
   );
