@@ -36,38 +36,28 @@ const categories = [
     const [description, setDescription] = useState('');
     const [body, setBody] = useState('');
 
-  
-
     const handleSubmit = async (event) => {
         event.preventDefault();
-        // Fetch data from the form
+
         const formData = new FormData(event.target);
         const storedToken = localStorage.getItem('token');
-        
-        // const title = formData.get("title")
-        // const description = formData.get("description")
-        // const body = formData.get("body")
         const selectedCategoryName = formData.get("category");
-        const status = "published"; // Hardcoded as "published"
+        
 
-  setTitle(formData.get("title"));
-    setDescription(formData.get("description"));
-    // Call the useState() function for the body variable
-    setBody(formData.get("postContent"));
+        const selectedCategory = categories.find(category => category.name === selectedCategoryName);
+        if (!selectedCategory) {
+          console.error('Selected category not found');
+          return;
+        }
 
-  const selectedCategory = categories.find(category => category.name === selectedCategoryName);
-  if (!selectedCategory) {
-    console.error('Selected category not found');
-    return;
-  }
-  const postData = {
-    title: title,
-    category: [selectedCategory.pk],
-    status:'published',
-    min_read:'5',
-    description: description,
-    body: body,
-  };
+        const postData = {
+          title: title,
+          category: [selectedCategory.pk],
+          status:'published',
+          min_read:'5',
+          description: description,
+          body: body,
+        };
 
         try {
           const response = await fetch('http://127.0.0.1:8000/post/post_create/', {
@@ -79,18 +69,15 @@ const categories = [
           });
     
           if (response.ok) {
-            // Post created successfully
-            // You can handle the success case here
             console.log('Post created successfully');
           } else {
-            // Handle error case
             console.error('Error creating post');
           }
         } catch (error) {
           console.error('Error creating post:', error);
         }
       };
-      console.log(title)
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -132,8 +119,6 @@ const categories = [
               justifyContent="center"
             >
 
-
-
             <TextField
               id="outlined-multiline-title"
               label="Title"
@@ -169,7 +154,6 @@ const categories = [
               value={body} // Bind to the state variable
               onChange={(e) => setBody(e.target.value)} // Update the state variable on change
             />
-
 
             <TextField
                 id="outlined-select-category"
