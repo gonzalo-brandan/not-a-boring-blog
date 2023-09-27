@@ -30,20 +30,30 @@ const categories = [
     // Add more categories here
   ];
 
-export default function CreatePost() {
+  export default function CreatePost() {
+
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [body, setBody] = useState('');
+
+  
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
         // Fetch data from the form
         const formData = new FormData(event.target);
         const storedToken = localStorage.getItem('token');
-        const title = formData.get("title");
+        
+        // const title = formData.get("title")
+        // const description = formData.get("description")
+        // const body = formData.get("body")
         const selectedCategoryName = formData.get("category");
         const status = "published"; // Hardcoded as "published"
-  const min_read = formData.get("min_read");
-  const description = formData.get("description");
-  const body = formData.get("postContent");
 
+  setTitle(formData.get("title"));
+    setDescription(formData.get("description"));
+    // Call the useState() function for the body variable
+    setBody(formData.get("postContent"));
 
   const selectedCategory = categories.find(category => category.name === selectedCategoryName);
   if (!selectedCategory) {
@@ -51,12 +61,12 @@ export default function CreatePost() {
     return;
   }
   const postData = {
-    title:'frontend title',
+    title: title,
     category: [selectedCategory.pk],
     status:'published',
     min_read:'5',
-    description:'frontend description',
-    body:'frontend body',
+    description: description,
+    body: body,
   };
 
         try {
@@ -80,9 +90,8 @@ export default function CreatePost() {
           console.error('Error creating post:', error);
         }
       };
-
+      console.log(title)
   return (
-    
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <AppBar position="relative">
@@ -122,10 +131,46 @@ export default function CreatePost() {
               spacing={4}
               justifyContent="center"
             >
-            <MultilineTextFields />
-            <MultilineTextFields />
-            <MultilineTextFields />
-            <MultilineTextFields />
+
+
+
+            <TextField
+              id="outlined-multiline-title"
+              label="Title"
+              multiline
+              rows={1}
+              variant="outlined"
+              fullWidth
+              required
+              value={title} // Bind to the state variable
+              onChange={(e) => setTitle(e.target.value)} // Update the state variable on change
+            />
+
+            <TextField
+              id="outlined-multiline-description"
+              label="Description"
+              multiline
+              rows={4}
+              variant="outlined"
+              fullWidth
+              required
+              value={description} // Bind to the state variable
+              onChange={(e) => setDescription(e.target.value)} // Update the state variable on change
+            />
+
+            <TextField
+              id="outlined-multiline-body"
+              label="Body"
+              multiline
+              rows={24}
+              variant="outlined"
+              fullWidth
+              required
+              value={body} // Bind to the state variable
+              onChange={(e) => setBody(e.target.value)} // Update the state variable on change
+            />
+
+
             <TextField
                 id="outlined-select-category"
                 select
