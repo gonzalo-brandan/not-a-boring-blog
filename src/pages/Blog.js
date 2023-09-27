@@ -14,6 +14,9 @@ import AppBar from '../components/AppBar'
 import { useState, useEffect } from 'react';
 import AuthService from '../components/AuthService';import { fetchPosts } from '../components/fetchPosts';
 
+import OpenIconSpeedDial from '../components/OpenIconSpeedDial'
+import { SpeedDial } from '@mui/material';
+
 const sections = [
   { title: 'Technology', url: '#' },
   { title: 'Design', url: '#' },
@@ -72,11 +75,12 @@ export default function Blog() {
           <Grid sx={{mt: 1}} container spacing={4}>
             {posts1.map((posts1) => (
               <FeaturedPost key={posts1.title}   linkText={'Continue reading…'} image={'https://source.unsplash.com/random?wallpapers'} post={posts1} />
-            ))
+              ))
             }
           </Grid>
         </main>
       </Container>
+            <OpenIconSpeedDial />
       <Footer
         title="Footer"
         description="Something here to give the footer a purpose!"
