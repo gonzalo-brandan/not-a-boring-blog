@@ -86,7 +86,7 @@ export default function SignUp() {
             (response) => {
               console.log(localStorage.getItem('token'));
               setCurrentUser(true);
-              navigate('/blog');
+              navigate('/');
             },
             (error) => {
               setError('Invalid email or password');

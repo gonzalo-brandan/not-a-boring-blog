@@ -89,7 +89,7 @@ export default function SignIn() {
           console.log(`current user: ${AuthService.getCurrentUser()}`)  
 
           // setCurrentUser(true);
-          navigate('/blog');
+          navigate('/');
         },
         (error) => {
           setError('Invalid email or password');
