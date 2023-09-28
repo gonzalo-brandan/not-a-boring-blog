@@ -40,7 +40,6 @@ export default function PostsUser(props) {
             console.error('Error fetching post data:', error);
           });
       }, [username]);
-
       return (
         <div>
     <ThemeProvider theme={defaultTheme}>
@@ -78,7 +77,8 @@ export default function PostsUser(props) {
             </Stack>
           </Container>
         </Box>
-          <Grid container spacing={2}>
+        {posts.length > 0 ? (
+        <Grid container spacing={2}>
             {posts.map((post) => (
               <Grid item xs={12} md={6} mt={3} key={post.id}>
                 <CardActionArea >
@@ -129,6 +129,28 @@ export default function PostsUser(props) {
               
             ))}
           </Grid>
+          ) : (
+            <Box
+            sx={{
+              bgcolor: 'background.paper',
+              pt: 8,
+              pb: 6,
+            }}
+          >
+            <Container maxWidth="sm">
+              <Typography
+                component="h2"
+                variant="h3"
+                align="center"
+                color="text.primary"
+                gutterBottom
+              >
+                {username} has not posted anything yet.
+              </Typography>
+            </Container>
+          </Box>
+
+            )}
           </Container>
 
           </ThemeProvider>
