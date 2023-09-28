@@ -6,6 +6,8 @@ import Blog from './pages/Blog';
 import PostPage from './pages/PostPage';
 import Users from './pages/Users';
 import CreatePost from './pages/CreatePost'
+import PostsUser from './pages/PostsUser'
+
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
         <Route path="/post_detail/:postId" element={<PostPage />} />
         <Route path="/users" element={<Users />} />
         <Route path="/create_post" element={<CreatePost />} />
+        <Route path="/user_posts/:username" element={<PostsUser />} />
       </Routes>
     </Router>
   );
