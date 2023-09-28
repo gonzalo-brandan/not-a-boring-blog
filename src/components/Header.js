@@ -20,7 +20,7 @@ function Header(props) {
   const handleClick = () => {
     // Your custom logic to handle the click event goes here
     console.log('Chip clicked!');
-    navigate('/blog')
+    navigate('/')
   };
 
   return (

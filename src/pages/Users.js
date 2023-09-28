@@ -126,8 +126,8 @@ export default function Users() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">View Posts</Button>
-                    <Button size="small">Follow</Button>
+                    <Link href={`/user_posts/${user.username}`}>
+                    <Button size="small" >View Posts</Button></Link>
                   </CardActions>
                 </Card>
               </Grid>

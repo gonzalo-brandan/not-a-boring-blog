@@ -14,6 +14,9 @@ import AppBar from '../components/AppBar'
 import { useState, useEffect } from 'react';
 import AuthService from '../components/AuthService';import { fetchPosts } from '../components/fetchPosts';
 
+import OpenIconSpeedDial from '../components/OpenIconSpeedDial'
+import { SpeedDial } from '@mui/material';
+
 const sections = [
   { title: 'Technology', url: '#' },
   { title: 'Design', url: '#' },
@@ -26,19 +29,6 @@ const sections = [
   { title: 'Style', url: '#' },
   { title: 'Travel', url: '#' },
 ];
-
-
-
-const mainFeaturedPost = {
-  title: 'Title of a longer featured blog post',
-  description:
-    "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
-  image: 'https://source.unsplash.com/random?wallpapers',
-  imageText: 'main image description',
-  linkText: 'Continue reading…',
-};
-
-const posts = [post1, post2, post3];
 
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -72,11 +62,12 @@ export default function Blog() {
           <Grid sx={{mt: 1}} container spacing={4}>
             {posts1.map((posts1) => (
               <FeaturedPost key={posts1.title}   linkText={'Continue reading…'} image={'https://source.unsplash.com/random?wallpapers'} post={posts1} />
-            ))
+              ))
             }
           </Grid>
         </main>
       </Container>
+            <OpenIconSpeedDial />
       <Footer
         title="Footer"
         description="Something here to give the footer a purpose!"

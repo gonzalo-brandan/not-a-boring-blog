@@ -21,7 +21,7 @@ import { useState } from 'react'
 const pages = [
   { name: 'Products', url: '/products' },
   { name: 'Pricing', url: '/pricing' },
-  { name: 'Blog', url: '/blog' },
+  { name: 'Blog', url: '/' },
   { name: 'Users', url: '/users' },
 ];
 
