@@ -11,16 +11,28 @@ import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
 import { Grid, Button } from '@mui/material';
 
+import { useState, useEffect } from 'react';
+import AuthService from '../Auth/AuthService';
+import { useNavigate } from 'react-router-dom';
 
 
 function FeaturedPost(props) {
   const { post } = props;
+  const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser);
+  const navigate = useNavigate();
 
+  const handleClick = () => {
+    if (currentUser) {
+      navigate(`/post_detail/${post.id}`);
+    } else {
+      navigate('/login');
+    }
+  };
 
   return (
 
     <Grid item xs={12} md={6} style={{ marginBottom: '30px' }}>
-<CardActionArea component="a" href={`/post_detail/${post.id}`}>
+<CardActionArea component="a" onClick={handleClick}>
     <CardMedia
       component="img"
       sx= {{ height: 240, display: { sm: 'block' } }}
