@@ -20,6 +20,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
+import { Box, Button, Stack } from '@mui/material';
 
 const defaultTheme = createTheme();
 
@@ -46,9 +47,37 @@ export default function PostsUser(props) {
       <CssBaseline />
           <AppBar currentUser={currentUser} />
           <Container maxWidth="lg">
-        <Typography>
-            hello
-        </Typography>
+          <Box
+          sx={{
+            bgcolor: 'background.paper',
+            pt: 8,
+            pb: 6,
+          }}
+        >
+          <Container maxWidth="sm">
+            <Typography
+              component="h1"
+              variant="h2"
+              align="center"
+              color="text.primary"
+              gutterBottom
+            >
+              Posts by {username}
+            </Typography>
+            <Typography variant="h5" align="center" color="text.secondary" paragraph>
+            Explore {username}'s collection of content.
+            </Typography>
+            <Stack
+              sx={{ pt: 4 }}
+              direction="row"
+              spacing={2}
+              justifyContent="center"
+            >
+              <Button variant="contained">Main call to action</Button>
+              <Button variant="outlined">Secondary action</Button>
+            </Stack>
+          </Container>
+        </Box>
           <Grid container spacing={2}>
             {posts.map((post) => (
               <Grid item xs={12} md={6} mt={3} key={post.id}>
