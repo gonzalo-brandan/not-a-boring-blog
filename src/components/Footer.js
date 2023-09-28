@@ -25,7 +25,7 @@ function Footer(props) {
     <Box component="footer" sx={{ bgcolor: 'background.paper', py: 6 }}>
       <Container maxWidth="lg">
         <Typography variant="h6" align="center" gutterBottom>
-          {title}
+          Not so boring blog Footer
         </Typography>
         <Typography
           variant="subtitle1"
@@ -33,7 +33,7 @@ function Footer(props) {
           color="text.secondary"
           component="p"
         >
-          {description}
+          Something
         </Typography>
         <Copyright />
       </Container>
