@@ -84,7 +84,9 @@ useEffect(() => {
 
 
   return (
+    
     <div>
+      
       <Paper elevation={0} sx={{ p: 2, bgcolor: 'grey.200', mt: 3 }}>
         <Typography variant="h6" gutterBottom>
           Comments
@@ -121,6 +123,7 @@ useEffect(() => {
                     primary={comment.author_username}
                     secondary={comment.body}
                   />
+                  
                 </ListItem>
                 <IconButton aria-label="reply">
                   <ReplyIcon />
@@ -128,9 +131,8 @@ useEffect(() => {
                 <IconButton aria-label="comments">
                   <CommentIcon />
                 </IconButton>
-
             {/* REPLY */}
-            {isReplying ? ( // Render the input field if isReplying is true
+            {/* {isReplying ? ( // Render the input field if isReplying is true
             <div>
             <TextField
             label="Reply to comment"
@@ -161,10 +163,26 @@ useEffect(() => {
         >
           Reply
         </Button>
-      )}
-              </List>
-            </Card>
+      )} */}
+       {comment.replies.length > 0 && (
+        <List>
+          {comment.replies.map((reply) => (
+            <ListItem key={reply.id} alignItems="center" disableGutters>
+              <ListItemAvatar>
+                <Avatar alt="User" src="/user-avatar.jpg" />
+              </ListItemAvatar>
+              <ListItemText
+                primary={reply.author_username}
+                secondary={reply.body}
+              />
+              {/* You can add more buttons or actions for each reply here */}
+            </ListItem>
           ))}
+        </List>
+      )}
+    </List>
+  </Card>
+))}
           
       </Paper>
     </div>
