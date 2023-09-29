@@ -24,6 +24,8 @@ export default function CreatePost() {
   const [description, setDescription] = useState('');
   const [body, setBody] = useState('');
   const [status, setStatus] = useState([]);
+  const [minRead, setMinRead] = useState([]);
+
 
   const navigate = useNavigate();
 
@@ -53,7 +55,7 @@ export default function CreatePost() {
       title: title,
       category: [category],
       status: status,
-      min_read: '5',
+      min_read: minRead,
       description: description,
       body: body,
     };
@@ -153,6 +155,17 @@ export default function CreatePost() {
                 required
                 value={body}
                 onChange={(e) => setBody(e.target.value)}
+              />
+              <TextField
+                id="outlined-multiline-title"
+                label="Minutes for reading"
+                multiline
+                rows={1}
+                variant="outlined"
+                fullWidth
+                required
+                value={minRead}
+                onChange={(e) => setMinRead(e.target.value)}
               />
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Category</InputLabel>
