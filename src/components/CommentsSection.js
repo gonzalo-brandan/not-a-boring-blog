@@ -25,18 +25,12 @@ function CommentsSection(props) {
   const [isReplying, setIsReplying] = useState(false); // State to track whether the user is replying
 
   const handleReplySubmit = () => {
-    // Send the reply to the server or perform any necessary actions
-    // In a real application, you would likely make an API call here
-
-    // Clear the input field after submitting the reply
     setReplyText('');
 
-    // Notify the parent component about the new reply
     if (props.onReply) {
       props.onReply(replyText);
     }
 
-    // Close the reply input field after submitting
     setIsReplying(false);
   };
   
@@ -56,7 +50,6 @@ useEffect(() => {
   }, [postId]); 
     console.log(comments)
     
-  // Function to handle user submission of a new comment
   const handleCommentSubmit = async () => {
     const storedToken = localStorage.getItem('token');
     console.log(currentUser.username)
@@ -70,9 +63,7 @@ useEffect(() => {
         body: JSON.stringify({ postId, body: newComment, author_username: currentUser.username }),
       });
       if (response.ok) {
-        // Comment posted successfully, update the comments list
         setComments([{ body: newComment, author_username: currentUser.username },...comments]);
-        // Clear the input field
         setNewComment('');
       } else {
         console.error('Error posting comment');
@@ -91,8 +82,6 @@ useEffect(() => {
         <Typography variant="h6" gutterBottom>
           Comments
         </Typography>
-        {/* Display existing comments */}
-        {/* User input section */}
         <TextField
           label="Add a comment"
           variant="outlined"
@@ -111,7 +100,7 @@ useEffect(() => {
           >
           Post Comment
         </Button>        
-        {comments.map((comment, index) => (
+        {comments && comments.map((comment, index) => (
             <Card sx={{ p: 2, mt: 3, mb: 3 }}>
               <List sx={{ py: 0 }}>
                 <ListItem alignItems="center" disableGutters sx={{ py: 0 }}>
@@ -164,9 +153,8 @@ useEffect(() => {
           Reply
         </Button>
       )} */}
-       {comment.replies.length > 0 && (
         <List>
-          {comment.replies.map((reply) => (
+        {comment.replies && comment.replies.map((reply) => (
             <ListItem key={reply.id} alignItems="center" disableGutters>
               <ListItemAvatar>
                 <Avatar alt="User" src="/user-avatar.jpg" />
@@ -179,7 +167,7 @@ useEffect(() => {
             </ListItem>
           ))}
         </List>
-      )}
+    
     </List>
   </Card>
 ))}
