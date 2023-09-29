@@ -15,16 +15,17 @@ import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/mater
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function CreatePost() {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState([]);
-  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [body, setBody] = useState('');
+  const [status, setStatus] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -51,7 +52,7 @@ export default function CreatePost() {
     const postData = {
       title: title,
       category: [category],
-      status: 'published',
+      status: status,
       min_read: '5',
       description: description,
       body: body,
@@ -77,7 +78,6 @@ export default function CreatePost() {
     }
     navigate('/');
   };
-  console.log(category)
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -168,6 +168,20 @@ export default function CreatePost() {
                       {cat.category_name}
                     </MenuItem>
                   ))}
+                </Select>
+              </FormControl>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="status"
+                  value={status}
+                  label="Status"
+                  onChange={(e) => setStatus(e.target.value)}
+                >
+                  <MenuItem value='published'>Publish</MenuItem>
+                  <MenuItem value='private'>Private</MenuItem>    
+                  <MenuItem value='editing'>Editing</MenuItem>  
                 </Select>
               </FormControl>
               <Button type="submit" variant="contained">
