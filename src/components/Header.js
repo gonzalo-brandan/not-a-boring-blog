@@ -20,10 +20,11 @@ function Header() {
       });
   }, []);
 
-  const handleClick = () => {
-    console.log('Chip clicked!');
-    navigate('/')
+  const handleClick = (category_name) => {
+    console.log('Chip clicked!', category_name);
+    navigate(`/posts/${category_name}`)
   };
+  
 
   return (
     <React.Fragment>
@@ -33,7 +34,7 @@ function Header() {
         sx={{  justifyContent: 'space-evenly', overflowX: 'auto', mt: 2}}
       >
         {section.map((section) => (
-          <Chip label={section.category_name} variant="outlined" color="primary" onClick={handleClick} />
+          <Chip label={section.category_name} variant="outlined" color="primary" onClick={() => handleClick(section.category_name)} />
         ))}
       </Toolbar>
     </React.Fragment>
