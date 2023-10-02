@@ -11,7 +11,7 @@ function Header() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/category/list_categories/`)
+    axios.get(`https://backend.not-a-boring-blog.net/category/list_categories/`)
       .then(response => {
         setSection(response.data); 
       })

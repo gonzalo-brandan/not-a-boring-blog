@@ -40,7 +40,7 @@ function CommentsSection(props) {
   const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser);
 
 useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/comment/comments/${postId}/`)
+    axios.get(`https://backend.not-a-boring-blog.net/comment/comments/${postId}/`)
       .then(response => {
         setComments(response.data); 
       })
@@ -54,7 +54,7 @@ useEffect(() => {
     const storedToken = localStorage.getItem('token');
     console.log(currentUser.username)
     try {
-      const response = await fetch(`http://127.0.0.1:8000/comment/create_comment/${postId}/`, {
+      const response = await fetch(`https://backend.not-a-boring-blog.net/comment/create_comment/${postId}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

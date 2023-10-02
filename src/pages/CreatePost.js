@@ -31,7 +31,7 @@ export default function CreatePost() {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/category/list_categories/`)
+      .get(`https://backend.not-a-boring-blog.net/category/list_categories/`)
       .then((response) => {
         setCategories(response.data);
       })
@@ -61,7 +61,7 @@ export default function CreatePost() {
     };
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/post/post_create/', {
+      const response = await fetch('https://backend.not-a-boring-blog.net/post/post_create/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

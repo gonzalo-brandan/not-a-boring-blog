@@ -37,7 +37,7 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
 const client = axios.create({
-  baseURL: "http://127.0.0.1:8000/user/"
+  baseURL: "https://backend.not-a-boring-blog.net/user/"
 });
 // TODO remove, this demo shouldn't need to reset the theme.
 
