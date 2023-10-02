@@ -38,6 +38,7 @@ axios.defaults.withCredentials = true;
 
 const client = axios.create({
   baseURL: "https://backend.not-a-boring-blog.net/user/"
+
 });
 // TODO remove, this demo shouldn't need to reset the theme.
 

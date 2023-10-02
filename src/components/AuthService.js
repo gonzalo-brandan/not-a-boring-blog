@@ -1,6 +1,8 @@
 import axios from 'axios';
 
+
 const API_URL = 'https://backend.not-a-boring-blog.net/';
+
 
 const client = axios.create({
   baseURL: API_URL,

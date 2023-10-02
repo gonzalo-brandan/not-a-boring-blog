@@ -79,7 +79,9 @@ export default function SignUp() {
           email: registrationData.email,
           password: registrationData.password
         };
+
         const loginResponse = await axios.post("https://backend.not-a-boring-blog.net/user/login/", loginData);
+
         if (loginResponse.status === 200) {
           AuthService.login(username, email, password)
           .then(
