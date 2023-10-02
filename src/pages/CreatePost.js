@@ -8,70 +8,78 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AppBar from '../components/AppBar'
+import AppBar from '../components/AppBar';
 import { useState, useEffect } from 'react';
-import Footer from '../components/Footer'
-import { TextField } from '@mui/material';
+import Footer from '../components/Footer';
+import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-const categories = [
-    { pk: 1, name: 'Tech' },
-    // Add more categories here
-  ];
+export default function CreatePost() {
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [body, setBody] = useState('');
+  const [status, setStatus] = useState([]);
+  const [minRead, setMinRead] = useState([]);
 
-  export default function CreatePost() {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [body, setBody] = useState('');
+  useEffect(() => {
+    axios
+      .get(`https://backend.not-a-boring-blog.net/category/list_categories/`)
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching post data:', error);
+      });
+  }, []);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-        const formData = new FormData(event.target);
-        const storedToken = localStorage.getItem('token');
-        const selectedCategoryName = formData.get("category");
-        
+    const formData = new FormData(event.target);
+    const storedToken = localStorage.getItem('token');
 
-        const selectedCategory = categories.find(category => category.name === selectedCategoryName);
-        if (!selectedCategory) {
-          console.error('Selected category not found');
-          return;
-        }
+    if (!category) {
+      console.error('Selected category not found');
+      return;
+    }
 
-        const postData = {
-          title: title,
-          category: [selectedCategory.pk],
-          status:'published',
-          min_read:'5',
-          description: description,
-          body: body,
-        };
+    const postData = {
+      title: title,
+      category: [category],
+      status: status,
+      min_read: minRead,
+      description: description,
+      body: body,
+    };
 
-        try {
-          const response = await fetch('http://127.0.0.1:8000/post/post_create/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${storedToken}`},
-            body: JSON.stringify(postData),
-          });
-    
-          if (response.ok) {
-            console.log('Post created successfully');
-          } else {
-            console.error('Error creating post');
-          }
-        } catch (error) {
-          console.error('Error creating post:', error);
-        }
-        navigate('/')
-      };
+    try {
+      const response = await fetch('https://backend.not-a-boring-blog.net/post/post_create/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${storedToken}`,
+        },
+        body: JSON.stringify(postData),
+      });
+
+      if (response.ok) {
+        console.log('Post created successfully');
+      } else {
+        console.error('Error creating post');
+      }
+    } catch (error) {
+      console.error('Error creating post:', error);
+    }
+    navigate('/');
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -105,72 +113,93 @@ const categories = [
             >
               Create a new Post
             </Typography>
-            <Typography variant="h5" align="center" marginBottom='4rem' color="text.secondary" paragraph>
-                Share your ideas with the world.
-            </Typography>
-            <Stack
-              direction="column"
-              spacing={4}
-              justifyContent="center"
+            <Typography
+              variant="h5"
+              align="center"
+              marginBottom="4rem"
+              color="text.secondary"
+              paragraph
             >
-
-            <TextField
-              id="outlined-multiline-title"
-              label="Title"
-              multiline
-              rows={1}
-              variant="outlined"
-              fullWidth
-              required
-              value={title} // Bind to the state variable
-              onChange={(e) => setTitle(e.target.value)} // Update the state variable on change
-            />
-
-            <TextField
-              id="outlined-multiline-description"
-              label="Description"
-              multiline
-              rows={4}
-              variant="outlined"
-              fullWidth
-              required
-              value={description} // Bind to the state variable
-              onChange={(e) => setDescription(e.target.value)} // Update the state variable on change
-            />
-
-            <TextField
-              id="outlined-multiline-body"
-              label="Body"
-              multiline
-              rows={24}
-              variant="outlined"
-              fullWidth
-              required
-              value={body} // Bind to the state variable
-              onChange={(e) => setBody(e.target.value)} // Update the state variable on change
-            />
-
-            <TextField
-                id="outlined-select-category"
-                select
-                label="Category"
-                name="category"
+              Share your ideas with the world.
+            </Typography>
+            <Stack direction="column" spacing={4} justifyContent="center">
+              <TextField
+                id="outlined-multiline-title"
+                label="Title"
+                multiline
+                rows={1}
                 variant="outlined"
                 fullWidth
                 required
-                SelectProps={{
-                  native: true,
-                }}
-              >
-                {categories.map((category) => (
-                  <option key={category.pk} value={category.name}>
-                    {category.name}
-                  </option>
-                ))}
-              </TextField>
-            <Button 
-            type="submit"
-            variant="contained">Create new post</Button>
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <TextField
+                id="outlined-multiline-description"
+                label="Description"
+                multiline
+                rows={4}
+                variant="outlined"
+                fullWidth
+                required
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+              <TextField
+                id="outlined-multiline-body"
+                label="Body"
+                multiline
+                rows={24}
+                variant="outlined"
+                fullWidth
+                required
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+              />
+              <TextField
+                id="outlined-multiline-title"
+                label="Minutes for reading"
+                multiline
+                rows={1}
+                variant="outlined"
+                fullWidth
+                required
+                value={minRead}
+                onChange={(e) => setMinRead(e.target.value)}
+              />
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="category"
+                  value={category}
+                  label="Category"
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  {categories.map((cat) => (
+                    <MenuItem key={cat.pk} value={cat.id}>
+                      {cat.category_name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="status"
+                  value={status}
+                  label="Status"
+                  onChange={(e) => setStatus(e.target.value)}
+                >
+                  <MenuItem value='published'>Publish</MenuItem>
+                  <MenuItem value='private'>Private</MenuItem>    
+                  <MenuItem value='editing'>Editing</MenuItem>  
+                </Select>
+              </FormControl>
+              <Button type="submit" variant="contained">
+                Create new post
+              </Button>
             </Stack>
           </Container>
         </Box>

@@ -32,7 +32,7 @@ export default function PostsUser(props) {
 
 
     useEffect(() => {
-        axios.get(`http://127.0.0.1:8000/post/user_posts/${username}/`)
+        axios.get(`https://backend.not-a-boring-blog.net/post/user_posts/${username}/`)
           .then(response => {
             setPosts(response.data); 
           })

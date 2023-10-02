@@ -1,62 +1,45 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import axios from 'axios'
-import AuthService from '../Auth/AuthService';
 import { useState, useEffect } from 'react';
 import Chip from '@mui/material/Chip';
 import { useNavigate } from 'react-router-dom';
 
-function Header(props) {
-  const { sections, title, currentUser } = props;
-
+function Header() {
+  const [section, setSection] = useState([])
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    // Your custom logic to handle the click event goes here
-    console.log('Chip clicked!');
-    navigate('/')
+  useEffect(() => {
+    axios.get(`https://backend.not-a-boring-blog.net/category/list_categories/`)
+      .then(response => {
+        setSection(response.data); 
+      })
+      .catch(error => {
+        console.error('Error fetching post data:', error);
+      });
+  }, []);
+
+  const handleClick = (category_name) => {
+    console.log('Chip clicked!', category_name);
+    navigate(`/posts/${category_name}`)
   };
+  
 
   return (
     <React.Fragment>
       <Toolbar
         component="nav"
         variant="dense"
-        sx={{  justifyContent: 'space-between', overflowX: 'auto', mt: 2}}
+        sx={{  justifyContent: 'space-evenly', overflowX: 'auto', mt: 2}}
       >
-        {sections.map((section) => (
-          // <Link
-          //   underline="none"
-          //   color="inherit"
-          //   noWrap
-          //   key={section.title}
-          //   variant="body2"
-          //   href={section.url}
-          //   sx={{ p: 1, flexShrink: 0 }}
-          // >
-          //   {section.title}
-          // </Link>
-          <Chip label={section.title} variant="outlined" color="primary" onClick={handleClick} />
+        {section.map((section) => (
+          <Chip label={section.category_name} variant="outlined" color="primary" onClick={() => handleClick(section.category_name)} />
         ))}
       </Toolbar>
     </React.Fragment>
   );
 }
 
-Header.propTypes = {
-  sections: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  title: PropTypes.string.isRequired,
-};
 
 export default Header;
