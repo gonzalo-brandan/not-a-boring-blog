@@ -41,11 +41,13 @@ function Sidebar(props) {
       </Typography>      
       {relatedPosts.map((relatedPost) => (
   <RelatedPostCard
-    key={relatedPost.id}
+    post={relatedPost}
     title={relatedPost.title}
     author={relatedPost.author}
   />
-))}
+  
+  ))}
+  
     </Grid>
   );
 }
