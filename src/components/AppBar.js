@@ -16,22 +16,22 @@ import { Link } from 'react-router-dom';
 
 import AuthService from './AuthService';
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 
 const pages = [
-  { name: 'Products', url: '/products' },
-  { name: 'Pricing', url: '/pricing' },
   { name: 'Blog', url: '/' },
   { name: 'Users', url: '/users' },
 ];
 
-const settings = ['Profile', 'Account', 'Dashboard'];
+const settings = [ 'Dashboard'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   
   const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser);
+  const navigate = useNavigate();
 
 
   const handleOpenNavMenu = (event) => {
@@ -54,7 +54,6 @@ function ResponsiveAppBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -70,7 +69,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            NSBB
+            NABB
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -111,7 +110,6 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -128,7 +126,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            NABB
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -182,12 +180,19 @@ function ResponsiveAppBar() {
                 </MenuItem>
               )}
               {currentUser && (
+                <div>
+                  <MenuItem key="My Account" href='/myaccount' onClick={() => {                  
+                  handleCloseUserMenu();
+                  }}>
+                  <Link to="/myaccount">My Account</Link>
+                </MenuItem>
                 <MenuItem key="Logout" onClick={() => {
                   AuthService.logout(); // Call the logout method
                   handleCloseUserMenu();
                   }}>
                   <Typography textAlign="center">Logout</Typography>
                 </MenuItem>
+                </div>
               )}
             </Menu>
           </Box>)}
