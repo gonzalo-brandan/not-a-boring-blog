@@ -66,7 +66,7 @@ export default function PostPage() {
         <Header title="Blog" sections={sections} />
         <main>
             <Grid container spacing={5} sx={{ mt: 3 }}>
-            <Main category={post.category} author={post.author} title={post.title} description={post.description} />
+            <Main category={post.category} author={post.author} title={post.title} description={post.description} body={post.body}/>
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}

@@ -8,7 +8,7 @@ import CommentsSection from './CommentsSection';
 
 
 function Main(props) {
-  const { author, description, title, category } = props;
+  const { author, description, title, category, body } = props;
 
   return (
     <Grid
@@ -32,7 +32,7 @@ function Main(props) {
       {description && (
       <>
       <Markdown sx={{mt:3}}className="markdown" >
-        {description}
+        {body}
       </Markdown>
       <CommentsSection postId='' />
       </>
