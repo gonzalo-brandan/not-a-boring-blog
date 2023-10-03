@@ -2,7 +2,7 @@ import { List, Card, ListItem, ListItemText, ListItemAvatar } from '@mui/materia
 import Avatar from '@mui/material/Avatar';
 
 function RelatedPostCard(props) {
-    const { title } = props;
+    const { title, author } = props;
     return(
 <Card sx={{ p: 2 }}>
 <List sx={{ py: 0 }}>
@@ -13,8 +13,8 @@ function RelatedPostCard(props) {
     </ListItemAvatar>
     <ListItemText
       sx={{ py: 0 }}
-      primary="John Doe"
-      secondary="Joined 2 hours ago"
+      primary={title}
+      secondary={author}
     />
   </ListItem>
 </List>

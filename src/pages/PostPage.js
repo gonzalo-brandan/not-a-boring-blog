@@ -45,17 +45,38 @@ const sections = [
 export default function PostPage() {
   const { postId } = useParams();
   const [post, setPost] = useState({});
+  const [relatedPosts, setRelatedPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
 
   useEffect(() => {
-    axios.get(`https://backend.not-a-boring-blog.net/post/post_detail/${postId}/`)
-      .then(response => {
-        setPost(response.data); 
-      })
-      .catch(error => {
-        console.error('Error fetching post data:', error);
-      });
-  }, [postId]); 
+    const fetchData = async () => {
+      try {
+        const postResponse = await axios.get(`${process.env.REACT_APP_DEV_BACKEND_BASE_URL}post/post_detail/${postId}/`);
+        setPost(postResponse.data);
+        const publicPostsResponse = await axios.get(`${process.env.REACT_APP_DEV_BACKEND_BASE_URL}post/public_posts/`);
+    
+        const filteredPosts = publicPostsResponse.data.filter(publicPost => {
+          if (postResponse.data.category) {
+            return (
+              postResponse.data.category.some(category => publicPost.category.includes(category)) &&
+              postResponse.data.id !== publicPost.id
+            );
+          }
+          return false;
+        });
 
+        setFilteredPosts(filteredPosts);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [postId]);
+
+  useEffect(() => {
+    setRelatedPosts(filteredPosts);
+  }, [filteredPosts]);
 
   return (
     
@@ -68,11 +89,12 @@ export default function PostPage() {
             <Grid container spacing={5} sx={{ mt: 3 }}>
             <Main category={post.category} author={post.author} title={post.title} description={post.description} body={post.body}/>
             <Sidebar
-              title={sidebar.title}
-              description={sidebar.description}
-              archives={sidebar.archives}
-              social={sidebar.social}
-            />
+  title={sidebar.title}
+  description={sidebar.description}
+  archives={sidebar.archives}
+  social={sidebar.social}
+  relatedPosts={relatedPosts}
+/>
           </Grid>
         </main>
       </Container>
