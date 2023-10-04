@@ -9,7 +9,7 @@ import Link from '@mui/material/Link';
 import RelatedPostCard from './RelatedPostCard'
 
 function Sidebar(props) {
-  const { archives, description, social, title } = props;
+  const { archives, description, social, title, relatedPosts } = props;
 
   return (
     <Grid item xs={12} md={4}>
@@ -39,7 +39,15 @@ function Sidebar(props) {
       <Typography variant="h6" gutterBottom sx={{ mt: 3, mb: 3 }}>
         Related Posts
       </Typography>      
-      <RelatedPostCard />
+      {relatedPosts.slice(0, 5).map((relatedPost) => (
+  <RelatedPostCard
+    post={relatedPost}
+    title={relatedPost.title}
+    author={relatedPost.author}
+  />
+  
+  ))}
+  
     </Grid>
   );
 }

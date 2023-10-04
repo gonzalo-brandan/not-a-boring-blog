@@ -18,27 +18,24 @@ import axios from 'axios';
 const defaultTheme = createTheme();
 
 export default function CreatePost() {
-  const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState([]);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [body, setBody] = useState('');
-  const [status, setStatus] = useState([]);
-  const [minRead, setMinRead] = useState([]);
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [bio, setBio] = useState('');
+
 
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_BACKEND_BASE_URL}category/list_categories/`)
-      .then((response) => {
-        setCategories(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching post data:', error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${process.env.REACT_APP_BACKEND_BASE_URL}category/list_categories/`)
+  //     .then((response) => {
+  //       setCategories(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching post data:', error);
+  //     });
+  // }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -46,18 +43,10 @@ export default function CreatePost() {
     const formData = new FormData(event.target);
     const storedToken = localStorage.getItem('token');
 
-    if (!category) {
-      console.error('Selected category not found');
-      return;
-    }
-
-    const postData = {
-      title: title,
-      category: [category],
-      status: status,
-      min_read: minRead,
-      description: description,
-      body: body,
+    const userData = {
+      username: username,
+      email: email,
+      bio: bio,
     };
 
     try {
@@ -67,7 +56,7 @@ export default function CreatePost() {
           'Content-Type': 'application/json',
           Authorization: `Token ${storedToken}`,
         },
-        body: JSON.stringify(postData),
+        body: JSON.stringify(userData),
       });
 
       if (response.ok) {
@@ -111,7 +100,7 @@ export default function CreatePost() {
               color="text.primary"
               gutterBottom
             >
-              Create a new Post
+              My Account
             </Typography>
             <Typography
               variant="h5"
@@ -120,85 +109,48 @@ export default function CreatePost() {
               color="text.secondary"
               paragraph
             >
-              Share your ideas with the world.
+              Here you can see, add or edit your information.
             </Typography>
             <Stack direction="column" spacing={4} justifyContent="center">
               <TextField
-                id="outlined-multiline-title"
-                label="Title"
+                 id="outlined"
+                label="Username"
+                rows={1}
+                fullWidth
+                
+                defaultValue={username}
+                // value=
+                onChange={(e) => setUsername(e.target.value)}
+              />
+                      <TextField
+          id="outlined"
+          label="My username"
+          defaultValue="Username"
+        />
+              <TextField
+                id="outlined-multiline-description"
+                label="Email"
                 multiline
                 rows={1}
                 variant="outlined"
                 fullWidth
                 required
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <TextField
-                id="outlined-multiline-description"
-                label="Description"
-                multiline
-                rows={4}
-                variant="outlined"
-                fullWidth
-                required
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
                 id="outlined-multiline-body"
-                label="Body"
+                label="Bio"
                 multiline
-                rows={24}
+                rows={5}
                 variant="outlined"
                 fullWidth
                 required
-                value={body}
-                onChange={(e) => setBody(e.target.value)}
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
               />
-              <TextField
-                id="outlined-multiline-title"
-                label="Minutes for reading"
-                multiline
-                rows={1}
-                variant="outlined"
-                fullWidth
-                required
-                value={minRead}
-                onChange={(e) => setMinRead(e.target.value)}
-              />
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Category</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="category"
-                  value={category}
-                  label="Category"
-                  onChange={(e) => setCategory(e.target.value)}
-                >
-                  {categories.map((cat) => (
-                    <MenuItem key={cat.pk} value={cat.id}>
-                      {cat.category_name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Status</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="status"
-                  value={status}
-                  label="Status"
-                  onChange={(e) => setStatus(e.target.value)}
-                >
-                  <MenuItem value='published'>Publish</MenuItem>
-                  <MenuItem value='private'>Private</MenuItem>    
-                  <MenuItem value='editing'>Editing</MenuItem>  
-                </Select>
-              </FormControl>
               <Button type="submit" variant="contained">
-                Create new post
+                Update
               </Button>
             </Stack>
           </Container>

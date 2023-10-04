@@ -11,7 +11,7 @@ function Header() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`https://backend.not-a-boring-blog.net/category/list_categories/`)
+    axios.get(`${process.env.REACT_APP_BACKEND_BASE_URL}category/list_categories/`)
       .then(response => {
         setSection(response.data); 
       })
