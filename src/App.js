@@ -8,7 +8,7 @@ import Users from './pages/Users';
 import CreatePost from './pages/CreatePost'
 import PostsUser from './pages/PostsUser'
 import PostsByCategory from './pages/PostsByCategory'
-
+import MyAccount from './pages/MyAccount'
 
 
 function App() {
@@ -23,6 +23,7 @@ function App() {
         <Route path="/create_post" element={<CreatePost />} />
         <Route path="/user_posts/:username" element={<PostsUser />} />
         <Route path="/posts/:category_name" element={<PostsByCategory />} />
+        <Route path="/myaccount" element={<MyAccount />} />
       </Routes>
     </Router>
   );
