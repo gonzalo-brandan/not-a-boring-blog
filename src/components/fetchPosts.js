@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export function fetchPosts() {
-  return axios.get('https://backend.not-a-boring-blog.net/post/public_posts/');
+  return axios.get(`${process.env.REACT_APP_BACKEND_BASE_URL}post/public_posts/`);
 }

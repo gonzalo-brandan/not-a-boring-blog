@@ -22,7 +22,7 @@ export default function Blog() {
 
   const fetchPostsByCategory = async (categoryName) => {
     try {
-      const response = await fetch(`https://backend.not-a-boring-blog.net/category/posts/${categoryName}`);
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}category/posts/${categoryName}`);
       if (response.ok) {
         const data = await response.json();
         return data;

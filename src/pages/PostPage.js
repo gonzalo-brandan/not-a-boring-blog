@@ -16,6 +16,8 @@ import Main from '../components/Main';
 import Sidebar from '../components/PostPage/Sidebar';
 import Footer from '../components/Footer';
 
+
+
 const defaultTheme = createTheme();
 
 const sidebar = {
@@ -51,9 +53,9 @@ export default function PostPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const postResponse = await axios.get(`${process.env.REACT_APP_DEV_BACKEND_BASE_URL}post/post_detail/${postId}/`);
+        const postResponse = await axios.get(`${process.env.REACT_APP_BACKEND_BASE_URL}post/post_detail/${postId}/`);
         setPost(postResponse.data);
-        const publicPostsResponse = await axios.get(`${process.env.REACT_APP_DEV_BACKEND_BASE_URL}post/public_posts/`);
+        const publicPostsResponse = await axios.get(`${process.env.REACT_APP_BACKEND_BASE_URL}post/public_posts/`);
     
         const filteredPosts = publicPostsResponse.data.filter(publicPost => {
           if (postResponse.data.category) {
@@ -95,6 +97,7 @@ export default function PostPage() {
   social={sidebar.social}
   relatedPosts={relatedPosts}
 />
+
           </Grid>
         </main>
       </Container>
