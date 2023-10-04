@@ -39,7 +39,7 @@ function Sidebar(props) {
       <Typography variant="h6" gutterBottom sx={{ mt: 3, mb: 3 }}>
         Related Posts
       </Typography>      
-      {relatedPosts.map((relatedPost) => (
+      {relatedPosts.slice(0, 5).map((relatedPost) => (
   <RelatedPostCard
     post={relatedPost}
     title={relatedPost.title}
