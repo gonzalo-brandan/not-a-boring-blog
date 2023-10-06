@@ -63,7 +63,6 @@ export default function SignIn() {
     // Log the token if the user is logged in
     if (user) {
       const token = user.token;
-      console.log(localStorage.getItem('token'));
     }
     setCurrentUser(user);
   }, []);
@@ -85,8 +84,7 @@ export default function SignIn() {
     AuthService.login(username, email, password)
       .then(
         (response) => {
-          console.log(localStorage.getItem('token'));
-          console.log(`current user: ${AuthService.getCurrentUser()}`)  
+        
 
           // setCurrentUser(true);
           navigate('/');

@@ -21,7 +21,6 @@ function Header() {
   }, []);
 
   const handleClick = (category_name) => {
-    console.log('Chip clicked!', category_name);
     navigate(`/posts/${category_name}`)
   };
   
