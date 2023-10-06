@@ -39,8 +39,18 @@ function CommentsSection(props) {
   const { postId } = useParams();
   const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser);
 
+  useEffect(() => {
+    // Fetch the current user
+    const getCurrentUser = async () => {
+      const currentUser = await AuthService.getCurrentUser();
+      setCurrentUser(currentUser);
+    };
+
+    getCurrentUser();
+  }, []);
+  
 useEffect(() => {
-    axios.get(`https://backend.not-a-boring-blog.net/comment/comments/${postId}/`)
+    axios.get(`${process.env.REACT_APP_BACKEND_BASE_URL}comment/comments/${postId}/`)
       .then(response => {
         setComments(response.data); 
       })
@@ -48,22 +58,22 @@ useEffect(() => {
         console.error('Error fetching post data:', error);
       });
   }, [postId]); 
-    console.log(comments)
     
   const handleCommentSubmit = async () => {
     const storedToken = localStorage.getItem('token');
-    console.log(currentUser.username)
     try {
-      const response = await fetch(`https://backend.not-a-boring-blog.net/comment/create_comment/${postId}/`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}comment/create_comment/${postId}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Token ${storedToken}`
         },
-        body: JSON.stringify({ postId, body: newComment, author_username: currentUser.username }),
+        body: JSON.stringify({ postId, body: newComment, author_username: 'mod'}),
       });
+
       if (response.ok) {
-        setComments([{ body: newComment, author_username: currentUser.username },...comments]);
+        const responseData = await response.json();
+        setComments([{ body: newComment, author_username: responseData.author_username },...comments]);
         setNewComment('');
       } else {
         console.error('Error posting comment');
@@ -72,7 +82,6 @@ useEffect(() => {
       console.error('Error posting comment:', error);
     }
   };
-
 
   return (
     
