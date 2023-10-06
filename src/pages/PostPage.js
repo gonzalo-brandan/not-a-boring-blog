@@ -20,16 +20,6 @@ import Footer from '../components/Footer';
 
 const defaultTheme = createTheme();
 
-const sidebar = {
-  title: 'About The Author',
-  description:
-    'Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.',
-  social: [
-    { name: 'GitHub', icon: GitHubIcon },
-    { name: 'Twitter', icon: TwitterIcon },
-    { name: 'Facebook', icon: FacebookIcon },
-  ],
-};
 
 const sections = [
   { title: 'Technology', url: '#' },
@@ -49,6 +39,17 @@ export default function PostPage() {
   const [post, setPost] = useState({});
   const [relatedPosts, setRelatedPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
+  
+  const sidebar = {
+    title: 'About The Author',
+    description:
+      post.bio,
+    social: [
+      { name: 'GitHub', icon: GitHubIcon },
+      { name: 'Twitter', icon: TwitterIcon },
+      { name: 'Facebook', icon: FacebookIcon },
+    ],
+  };
 
   useEffect(() => {
     const fetchData = async () => {
