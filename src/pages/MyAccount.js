@@ -11,9 +11,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppBar from '../components/AppBar';
 import { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
-import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import PasswordField from '../components/PasswordField';
+import ChangePasswordButton from '../components/ChangePasswordButton';
 
 const defaultTheme = createTheme();
 
@@ -21,6 +23,11 @@ export default function CreatePost() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [bio, setBio] = useState('');
+
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
 
   const navigate = useNavigate();
 
@@ -45,7 +52,7 @@ export default function CreatePost() {
     const updatedBio = bio; 
   
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}user/update_bio`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}user/update_bio/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -133,6 +140,32 @@ export default function CreatePost() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               /> */}
+              <PasswordField
+                name="oldPassword"
+                label="Old Password"
+                id="oldPassword"
+                autoComplete="old-password"
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+              />
+              <PasswordField
+                name="newPassword"
+                label="New Password"
+                id="newPassword"
+                autoComplete="new-password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+              <PasswordField
+                name="confirmPassword"
+                label="Confirm Password"
+                id="confirmPassword"
+                autoComplete="confirm-password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              <ChangePasswordButton oldPassword={oldPassword} newPassword={newPassword} confirmPassword={confirmPassword}/>
+
               <TextField
                 id="outlined-multiline-body"
                 name='bio'
