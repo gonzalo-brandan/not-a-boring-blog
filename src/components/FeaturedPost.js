@@ -39,8 +39,8 @@ function FeaturedPost(props) {
       image={props.image}
       alt={post.imageLabel}
     />
-  <Card sx={{ display: 'flex', flexDirection: 'column', maxHeight: 250 }}>
-    <CardContent sx={{ flex: 1 }}>
+  <Card sx={{ display: 'flex', flexDirection: 'column', height: 250 }}>
+    <CardContent  sx={{ flex: 1 }}>
       <Typography component="h2" variant="h5">
         {post.title}
       </Typography>
@@ -52,11 +52,12 @@ function FeaturedPost(props) {
       </Typography>
       <Typography variant="subtitle1" color="primary">
         Continue reading...
-      </Typography>
+      </Typography>  
+   
     </CardContent> 
-    <CardContent sx={{ display: 'flex', gap: '0.5rem', justifyContent: 'left'}}>
-      <Chip label={post.category} />
-      <Chip label={post.created_at} />
+    <CardContent sx={{ display: 'flex',  flexDirection: 'row', gap: '0.5rem'}}>
+       <Chip  label={post.category} />
+       <Chip  label={post.created_at} />
       <Chip 
        avatar={<Avatar alt="Author" src="/static/images/avatar/1.jpg" />}
        label={post.author} 

@@ -22,50 +22,45 @@ export default function CreatePost() {
   const [email, setEmail] = useState('');
   const [bio, setBio] = useState('');
 
-
-
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${process.env.REACT_APP_BACKEND_BASE_URL}category/list_categories/`)
-  //     .then((response) => {
-  //       setCategories(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching post data:', error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_BASE_URL}user/update_bio/`)
+      .then((response) => {
+        const bioData = response.data
+        const bioText = bioData.bio
+        setBio(bioText);
+      })
+      .catch((error) => {
+        console.error('Error fetching bio data:', error);
+      });
+  }, []);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const formData = new FormData(event.target);
+  
     const storedToken = localStorage.getItem('token');
-
-    const userData = {
-      username: username,
-      email: email,
-      bio: bio,
-    };
-
+    const updatedBio = bio; 
+  
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}post/post_create/`, {
-        method: 'POST',
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}user/update_bio`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Token ${storedToken}`,
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify({ bio: updatedBio }),
       });
-
+  
       if (response.ok) {
-        console.log('Post created successfully');
+        console.log('Bio updated successfully');
       } else {
-        console.error('Error creating post');
+        console.error('Error updating bio');
       }
     } catch (error) {
-      console.error('Error creating post:', error);
+      console.error('Error updating bio:', error);
     }
     navigate('/');
   };
@@ -112,7 +107,7 @@ export default function CreatePost() {
               Here you can see, add or edit your information.
             </Typography>
             <Stack direction="column" spacing={4} justifyContent="center">
-              <TextField
+              {/* <TextField
                  id="outlined"
                 label="Username"
                 rows={1}
@@ -137,9 +132,10 @@ export default function CreatePost() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-              />
+              /> */}
               <TextField
                 id="outlined-multiline-body"
+                name='bio'
                 label="Bio"
                 multiline
                 rows={5}
@@ -150,7 +146,7 @@ export default function CreatePost() {
                 onChange={(e) => setBio(e.target.value)}
               />
               <Button type="submit" variant="contained">
-                Update
+                Update Bio
               </Button>
             </Stack>
           </Container>

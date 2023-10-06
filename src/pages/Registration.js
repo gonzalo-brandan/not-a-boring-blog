@@ -73,7 +73,6 @@ export default function SignUp() {
     try {
       const registrationResponse = await axios.post(`${process.env.REACT_APP_BACKEND_BASE_URL}user/register/`, registrationData);
       if (registrationResponse.status === 201) {
-        console.log('registration')
         const loginData = {
           username: registrationData.username,
           email: registrationData.email,
@@ -84,7 +83,6 @@ export default function SignUp() {
           AuthService.login(username, email, password)
           .then(
             (response) => {
-              console.log(localStorage.getItem('token'));
               setCurrentUser(true);
               navigate('/');
             },
