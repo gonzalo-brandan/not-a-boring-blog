@@ -184,7 +184,7 @@ function ResponsiveAppBar() {
                   <MenuItem key="My Account" href='/myaccount' onClick={() => {                  
                   handleCloseUserMenu();
                   }}>
-                  <Link to="/myaccount">My Account</Link>
+                  <Link to="/myaccount" style={{ textDecoration: 'none', color: 'inherit'}}>My Account</Link>
                 </MenuItem>
                 <MenuItem key="Logout" onClick={() => {
                   AuthService.logout(); // Call the logout method
@@ -201,6 +201,5 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-console.log(`current user: ${AuthService.getCurrentUser()}`)  
 
 export default ResponsiveAppBar;
