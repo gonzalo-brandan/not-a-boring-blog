@@ -20,8 +20,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 const pages = [
-  { name: 'Blog', url: '/' },
+  { name: 'Home', url: '/' },
   { name: 'Users', url: '/users' },
+  { name: 'My Posts', url: '/myposts' },
 ];
 
 const settings = [ 'Dashboard'];
