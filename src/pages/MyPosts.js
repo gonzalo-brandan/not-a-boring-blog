@@ -25,6 +25,10 @@ export default function MyPosts() {
       navigate(`/edit_post/${postId}`);
     };
 
+    const handleRedirectPost = (postId) => {
+      navigate(`/post_detail/${postId}`);
+    };
+
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BACKEND_BASE_URL}post/my_posts/`)
           .then(response => {
@@ -51,10 +55,10 @@ export default function MyPosts() {
           <Grid container spacing={4}>
             {posts.map((post) => (
               <Grid item key={post.id} xs={12} sm={6} md={4}>
-                <CardActionArea component="a" onClick={() => handleRedirectEdit(post.id)}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
+                <CardActionArea component="a" onClick={() => handleRedirectPost(post.id)}>
                   <CardMedia
                     component="div"
                     sx={{
@@ -71,12 +75,12 @@ export default function MyPosts() {
                       {post.description}
                     </Typography>
                   </CardContent>
+                    </CardActionArea>
                   <CardActions sx={{gap: 2}}>
                     <DeleteButton postId={post.id} onDeleteSuccess={handlePostDeleteSuccess} />
-                    <Link href=''><Button startIcon={<EditIcon />} variant="contained" size="small" >Edit</Button></Link>
+                    <Button startIcon={<EditIcon />} variant="contained" size="small" onClick={() => handleRedirectEdit(post.id)}>Edit</Button>
                   </CardActions>
                 </Card>
-            </CardActionArea>
               </Grid>
             ))}
           </Grid>
