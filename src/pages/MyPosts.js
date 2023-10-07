@@ -16,8 +16,9 @@ export default function MyPosts() {
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const navigate = useNavigate();
 
-    const handlePostDeleteSuccess = () => {
-        setShowSuccessAlert(true);
+    const handlePostDeleteSuccess = (postId) => {
+      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+      setShowSuccessAlert(true);
       };
     
 
@@ -40,7 +41,7 @@ export default function MyPosts() {
       <CssBaseline />
       <main>
       {showSuccessAlert && (
-          <Alert severity="success">Post deleted successfully! Refresh the page to see the changes.</Alert>
+          <Alert severity="success">Post deleted successfully!</Alert>
       )}
       <Container sx={{ py: 1 }} maxWidth="md">
         <HeroSection
@@ -73,7 +74,7 @@ export default function MyPosts() {
                   </CardContent>
                     </CardActionArea>
                   <CardActions sx={{gap: 2}}>
-                    <DeleteButton postId={post.id} onDeleteSuccess={handlePostDeleteSuccess} />
+                    <DeleteButton postId={post.id} onDeleteSuccess={() => handlePostDeleteSuccess(post.id)} />
                     <EditPostButton postId={post.id}/>
                   </CardActions>
                 </Card>
