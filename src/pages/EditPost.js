@@ -10,26 +10,47 @@ import { useState, useEffect } from 'react';
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
 
 const defaultTheme = createTheme();
 
-export default function CreatePost() {
+export default function EditPost() {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState([]);
   const [title, setTitle] = useState('');
+  const [newTitle, setNewTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [newDescription, setNewDescription] = useState('');
   const [body, setBody] = useState('');
+  const [newBody, setNewBody] = useState('');
   const [status, setStatus] = useState([]);
-  const [minRead, setMinRead] = useState([]);
+  const [newStatus, setNewStatus] = useState([]);
+  const [minRead, setMinRead] = useState('');
+  const [newMinRead, setNewMinRead] = useState([]);
+  const { postId } = useParams();
 
 
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_BASE_URL}category/list_categories/`)
+      .get(`${process.env.REACT_APP_BACKEND_BASE_URL}post/post_detail/${postId}`)
       .then((response) => {
-        setCategories(response.data);
+        const postData = response.data
+        const bodyText = postData.body
+        const titleText = postData.title
+        const descriptionText = postData.description
+        const minReadTime = postData.min_read
+        const status = postData.status
+        const category = [postData.category]
+        setBody(bodyText);
+        setTitle(titleText)
+        setDescription(descriptionText)
+        setStatus(status)
+        setMinRead(minReadTime)
+        setCategory(category)
+        console.log(response.data)
       })
       .catch((error) => {
         console.error('Error fetching post data:', error);
@@ -99,7 +120,7 @@ export default function CreatePost() {
               color="text.primary"
               gutterBottom
             >
-              Create a new Post
+              Update Post
             </Typography>
             <Typography
               variant="h5"
@@ -186,7 +207,7 @@ export default function CreatePost() {
                 </Select>
               </FormControl>
               <Button type="submit" variant="contained">
-                Create new post
+                Update Post
               </Button>
             </Stack>
           </Container>
