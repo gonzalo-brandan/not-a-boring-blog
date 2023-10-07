@@ -6,6 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Link } from 'react-router-dom';
 import { Alert, Button, Card, CardActions, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
 import DeleteButton from '../components/DeleteButton';
+import HeroSection from '../components/HeroSection';
 
 const defaultTheme = createTheme();
 
@@ -31,11 +32,15 @@ export default function MyPosts() {
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <main>
-              {showSuccessAlert && (
-              <Alert severity="success">Post deleted successfully! Refresh the page to see the changes.</Alert>
-            )}
-      <Container sx={{ py: 8 }} maxWidth="md">
-          {/* End hero unit */}
+      {showSuccessAlert && (
+          <Alert severity="success">Post deleted successfully! Refresh the page to see the changes.</Alert>
+      )}
+      <Container sx={{ py: 1 }} maxWidth="md">
+        <HeroSection
+          title="Your Posts"
+          description="Manage and view your posts. Add, edit, or delete posts as needed."
+          primaryButtonText="Add New Post"
+        />
           <Grid container spacing={4}>
             {posts.map((post) => (
               <Grid item key={post.id} xs={12} sm={6} md={4}>
