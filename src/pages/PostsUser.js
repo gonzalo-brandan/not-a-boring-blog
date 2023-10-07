@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import AppBar from '../components/AppBar'
 import AuthService from '../Auth/AuthService';
 import { useState, useEffect } from 'react';
 import axios from 'axios'
@@ -44,7 +43,6 @@ export default function PostsUser(props) {
         <div>
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-          <AppBar currentUser={currentUser} />
           <Container maxWidth="lg">
           <Box
           sx={{

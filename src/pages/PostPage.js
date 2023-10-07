@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import AppBar from '../components/AppBar';
 import axios from 'axios';
 
 import Grid from '@mui/material/Grid';
@@ -85,7 +84,6 @@ export default function PostPage() {
     
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <AppBar />
       <Container maxWidth="lg">
         <Header title="Blog" sections={sections} />
         <main>

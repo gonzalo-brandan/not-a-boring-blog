@@ -9,22 +9,28 @@ import CreatePost from './pages/CreatePost'
 import PostsUser from './pages/PostsUser'
 import PostsByCategory from './pages/PostsByCategory'
 import MyAccount from './pages/MyAccount'
+import MyPosts from './pages/MyPosts'
+import Layout from './Layout';
+
 
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Registration />} />
-        <Route path="/" element={<Blog />} />
-        <Route path="/post_detail/:postId" element={<PostPage />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/create_post" element={<CreatePost />} />
-        <Route path="/user_posts/:username" element={<PostsUser />} />
-        <Route path="/posts/:category_name" element={<PostsByCategory />} />
-        <Route path="/myaccount" element={<MyAccount />} />
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registration />} />
+          <Route path="/" element={<Blog />} />
+          <Route path="/post_detail/:postId" element={<PostPage />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/create_post" element={<CreatePost />} />
+          <Route path="/user_posts/:username" element={<PostsUser />} />
+          <Route path="/posts/:category_name" element={<PostsByCategory />} />
+          <Route path="/myaccount" element={<MyAccount />} />
+          <Route path="/myposts" element={<MyPosts />} />
+        </Routes>
+      </Layout>
     </Router>
   );
 }

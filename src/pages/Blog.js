@@ -8,7 +8,6 @@ import FeaturedPost from '../components/FeaturedPost';import Footer from '../com
 import post1 from '../Assets/Posts/blog-post.1.md';
 import post2 from '../Assets/Posts/blog-post.2.md';
 import post3 from '../Assets/Posts/blog-post.3.md';
-import AppBar from '../components/AppBar'
 
 
 import { useState, useEffect } from 'react';
@@ -55,7 +54,6 @@ export default function Blog() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <AppBar currentUser={currentUser} />
       <Container maxWidth="lg">
         <Header title="Not Boring Blog" sections={sections} />
         <main>

@@ -5,7 +5,6 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Header from '../components/Header';
 import FeaturedPost from '../components/FeaturedPost';import Footer from '../components/Footer';
-import AppBar from '../components/AppBar'
 import { useParams } from 'react-router-dom';
 
 import { useState, useEffect } from 'react';
@@ -49,7 +48,6 @@ export default function Blog() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <AppBar currentUser={currentUser} />
       <Container maxWidth="lg">
         <Header title="Not Boring Blog" />
         <main>
