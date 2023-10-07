@@ -3,12 +3,11 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Link } from 'react-router-dom';
-import { Alert, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
+import { Alert, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
 import DeleteButton from '../components/DeleteButton';
 import HeroSection from '../components/HeroSection';
-import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
+import EditPostButton from '../components/EditPostButton';
 
 const defaultTheme = createTheme();
 
@@ -21,9 +20,6 @@ export default function MyPosts() {
         setShowSuccessAlert(true);
       };
     
-    const handleRedirectEdit = (postId) => {
-      navigate(`/edit_post/${postId}`);
-    };
 
     const handleRedirectPost = (postId) => {
       navigate(`/post_detail/${postId}`);
@@ -78,7 +74,7 @@ export default function MyPosts() {
                     </CardActionArea>
                   <CardActions sx={{gap: 2}}>
                     <DeleteButton postId={post.id} onDeleteSuccess={handlePostDeleteSuccess} />
-                    <Button startIcon={<EditIcon />} variant="contained" size="small" onClick={() => handleRedirectEdit(post.id)}>Edit</Button>
+                    <EditPostButton postId={post.id}/>
                   </CardActions>
                 </Card>
               </Grid>
