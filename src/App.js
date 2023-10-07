@@ -11,7 +11,7 @@ import PostsByCategory from './pages/PostsByCategory'
 import MyAccount from './pages/MyAccount'
 import MyPosts from './pages/MyPosts'
 import Layout from './Layout';
-
+import EditPost from './pages/EditPost'
 
 
 function App() {
@@ -29,6 +29,7 @@ function App() {
           <Route path="/posts/:category_name" element={<PostsByCategory />} />
           <Route path="/myaccount" element={<MyAccount />} />
           <Route path="/myposts" element={<MyPosts />} />
+          <Route path="/edit_post/:postId" element={<EditPost />} />
         </Routes>
       </Layout>
     </Router>
