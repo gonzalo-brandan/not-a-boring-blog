@@ -33,12 +33,16 @@ const HeroSection = ({ title, description, primaryButtonText, secondaryButtonTex
           spacing={2}
           justifyContent="center"
         >
-          <Button variant="contained" color="primary">
-            {primaryButtonText}
-          </Button>
-          <Button variant="outlined" color="secondary">
-            {secondaryButtonText}
-          </Button>
+          {primaryButtonText && (
+            <Button variant="contained" color="primary">
+              {primaryButtonText}
+            </Button>
+          )}
+          {secondaryButtonText && (
+            <Button variant="outlined" color="secondary">
+              {secondaryButtonText}
+            </Button>
+          )}
         </Stack>
       </Container>
     </Box>
