@@ -4,19 +4,26 @@ import { useState, useEffect } from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Link } from 'react-router-dom';
-import { Alert, Button, Card, CardActions, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
+import { Alert, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
 import DeleteButton from '../components/DeleteButton';
 import HeroSection from '../components/HeroSection';
+import EditIcon from '@mui/icons-material/Edit';
+import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
 export default function MyPosts() {
     const [posts, setPosts] = useState([]);
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+    const navigate = useNavigate();
 
     const handlePostDeleteSuccess = () => {
         setShowSuccessAlert(true);
       };
+    
+    const handleRedirectEdit = (postId) => {
+      navigate(`/edit_post/${postId}`);
+    };
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BACKEND_BASE_URL}post/my_posts/`)
@@ -44,6 +51,7 @@ export default function MyPosts() {
           <Grid container spacing={4}>
             {posts.map((post) => (
               <Grid item key={post.id} xs={12} sm={6} md={4}>
+                <CardActionArea component="a" onClick={() => handleRedirectEdit(post.id)}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
@@ -63,11 +71,12 @@ export default function MyPosts() {
                       {post.description}
                     </Typography>
                   </CardContent>
-                  <CardActions>
-                   <DeleteButton postId={post.id} onDeleteSuccess={handlePostDeleteSuccess} />
-                    <Link href=''><Button variant="contained" size="small" >Edit</Button></Link>
+                  <CardActions sx={{gap: 2}}>
+                    <DeleteButton postId={post.id} onDeleteSuccess={handlePostDeleteSuccess} />
+                    <Link href=''><Button startIcon={<EditIcon />} variant="contained" size="small" >Edit</Button></Link>
                   </CardActions>
                 </Card>
+            </CardActionArea>
               </Grid>
             ))}
           </Grid>
