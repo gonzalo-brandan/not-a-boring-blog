@@ -29,7 +29,7 @@ const ChangePasswordButton = (props) => {
   return(
 
   <Button onClick={handleUpdatePassword} variant="contained">
-  Change Password 2
+  Change Password
 </Button>
 )};
 

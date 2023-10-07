@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Header from '../components/Header';
-import FeaturedPost from '../components/FeaturedPost';import Footer from '../components/Footer';
+import FeaturedPost from '../components/FeaturedPost';
 import post1 from '../Assets/Posts/blog-post.1.md';
 import post2 from '../Assets/Posts/blog-post.2.md';
 import post3 from '../Assets/Posts/blog-post.3.md';
@@ -66,10 +66,6 @@ export default function Blog() {
         </main>
       </Container>
             <OpenIconSpeedDial />
-      <Footer
-        title="Footer"
-        description="Something here to give the footer a purpose!"
-      />
     </ThemeProvider>
   );
 }

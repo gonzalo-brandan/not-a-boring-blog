@@ -13,7 +13,6 @@ import Container from '@mui/material/Container';
 import Main from '../components/Main';
 
 import Sidebar from '../components/PostPage/Sidebar';
-import Footer from '../components/Footer';
 
 
 
@@ -100,10 +99,6 @@ export default function PostPage() {
           </Grid>
         </main>
       </Container>
-      <Footer
-        title="Footer"
-        description="Something here to give the footer a purpose!"
-      />
     </ThemeProvider>
   );
 }
