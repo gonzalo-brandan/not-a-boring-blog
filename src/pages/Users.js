@@ -52,7 +52,6 @@ export default function Users() {
       });
   }, []);
 
-
   return (
     
     <ThemeProvider theme={defaultTheme}>
@@ -60,7 +59,6 @@ export default function Users() {
       <main>
       <HeroSection title='Explore Our Community' description='Meet our diverse community of users'/>
         <Container sx={{ py: 8 }} maxWidth="md">
-          {/* End hero unit */}
           <Grid container spacing={4}>
             {users.map((user) => (
               <Grid item key={user.id} xs={12} sm={6} md={4}>
@@ -80,7 +78,7 @@ export default function Users() {
                       {user.username}
                     </Typography>
                     <Typography>
-                      {user.id}
+                    {user.role && typeof user.role.bio === 'string' ? user.role.bio : ''}
                     </Typography>
                   </CardContent>
                   <CardActions>
