@@ -14,6 +14,8 @@ const AuthService = {
       .then(response => {
         if (response.data.token) {
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('username', response.data.username);
+
         }
         return response.data;
       });
@@ -27,9 +29,9 @@ const AuthService = {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       axios.defaults.headers.common['Authorization'] = `Token ${storedToken}`;
-      return true; // User is considered authenticated
+      return true;
     }
-    return false; // User is not authenticated
+    return false;
   },
 };
 
