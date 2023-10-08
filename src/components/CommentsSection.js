@@ -16,6 +16,7 @@ import AuthService from '../components/AuthService';
 import { useParams } from 'react-router-dom';
 import { fetchComments } from './fetchComments';
 import axios from 'axios';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 
@@ -37,10 +38,9 @@ function CommentsSection(props) {
   const [newComment, setNewComment] = useState('');
   const [comments, setComments] = useState([]);
   const { postId } = useParams();
-  const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser);
+  const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser())
 
   useEffect(() => {
-    // Fetch the current user
     const getCurrentUser = async () => {
       const currentUser = await AuthService.getCurrentUser();
       setCurrentUser(currentUser);
@@ -129,6 +129,11 @@ useEffect(() => {
                 <IconButton aria-label="comments">
                   <CommentIcon />
                 </IconButton>
+                {localStorage.username === comment.author_username && (
+                <IconButton aria-label="reply">
+                  <DeleteIcon />
+                </IconButton>
+                )}
             {/* REPLY */}
             {/* {isReplying ? ( // Render the input field if isReplying is true
             <div>
