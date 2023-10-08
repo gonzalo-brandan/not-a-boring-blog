@@ -58,6 +58,16 @@ useEffect(() => {
         console.error('Error fetching post data:', error);
       });
   }, [postId]); 
+  const fetchAndUpdateComments = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_BASE_URL}comment/comments/${postId}/`);
+      if (response.status === 200) {
+        setComments(response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching comments:', error);
+    }
+  };
     
   const handleCommentSubmit = async () => {
     const storedToken = localStorage.getItem('token');
@@ -73,8 +83,8 @@ useEffect(() => {
 
       if (response.ok) {
         const responseData = await response.json();
-        setComments([{ body: newComment, author_username: responseData.author_username },...comments]);
         setNewComment('');
+        fetchAndUpdateComments();
       } else {
         console.error('Error posting comment');
       }
