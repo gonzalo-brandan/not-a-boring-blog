@@ -123,14 +123,21 @@ useEffect(() => {
                   />
                   
                 </ListItem>
-                <IconButton aria-label="reply">
+                {/* <IconButton aria-label="reply">
                   <ReplyIcon />
                 </IconButton>
                 <IconButton aria-label="comments">
                   <CommentIcon />
-                </IconButton>
+                </IconButton> */}
                 {localStorage.username === comment.author_username && (
-                <IconButton aria-label="reply">
+                <IconButton 
+                aria-label="delete"
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                }}
+                >
                   <DeleteIcon />
                 </IconButton>
                 )}
