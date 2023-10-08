@@ -11,6 +11,7 @@ import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/mater
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import HeroSection from '../components/HeroSection';
 
 
 const defaultTheme = createTheme();
@@ -19,15 +20,10 @@ export default function EditPost() {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState([]);
   const [title, setTitle] = useState('');
-  const [newTitle, setNewTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [newDescription, setNewDescription] = useState('');
   const [body, setBody] = useState('');
-  const [newBody, setNewBody] = useState('');
-  const [status, setStatus] = useState([]);
-  const [newStatus, setNewStatus] = useState([]);
+  const [status, setStatus] = useState('');
   const [minRead, setMinRead] = useState('');
-  const [newMinRead, setNewMinRead] = useState([]);
   const { postId } = useParams();
 
 
@@ -35,7 +31,18 @@ export default function EditPost() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_BASE_URL}post/post_detail/${postId}`)
+      .get(`${process.env.REACT_APP_BACKEND_BASE_URL}category/list_categories/`)
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching post data:', error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_BASE_URL}post/post_detail/${postId}/`)
       .then((response) => {
         const postData = response.data
         const bodyText = postData.body
@@ -50,7 +57,6 @@ export default function EditPost() {
         setStatus(status)
         setMinRead(minReadTime)
         setCategory(category)
-        console.log(response.data)
       })
       .catch((error) => {
         console.error('Error fetching post data:', error);
@@ -78,8 +84,8 @@ export default function EditPost() {
     };
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}post/post_create/`, {
-        method: 'POST',
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}post/post_detail/${postId}/`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Token ${storedToken}`,
@@ -97,7 +103,6 @@ export default function EditPost() {
     }
     navigate('/');
   };
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -106,31 +111,14 @@ export default function EditPost() {
         <Box
           sx={{
             bgcolor: 'background.paper',
-            pt: 8,
+            pt: 1,
             pb: 6,
           }}
           onSubmit={handleSubmit}
           component="form"
         >
           <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
-              gutterBottom
-            >
-              Update Post
-            </Typography>
-            <Typography
-              variant="h5"
-              align="center"
-              marginBottom="4rem"
-              color="text.secondary"
-              paragraph
-            >
-              Share your ideas with the world.
-            </Typography>
+            <HeroSection title='Update Post' description='Share your ideas with the world.' />
             <Stack direction="column" spacing={4} justifyContent="center">
               <TextField
                 id="outlined-multiline-title"
@@ -177,20 +165,37 @@ export default function EditPost() {
                 onChange={(e) => setMinRead(e.target.value)}
               />
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Category</InputLabel>
-                <Select
+                {/* <InputLabel id="demo-simple-select-label">Category</InputLabel> */}
+                {/* <Select
                   labelId="demo-simple-select-label"
                   id="category"
-                  value={category}
+                  defaultValue={category}
                   label="Category"
                   onChange={(e) => setCategory(e.target.value)}
                 >
                   {categories.map((cat) => (
-                    <MenuItem key={cat.pk} value={cat.id}>
+                    <MenuItem key={cat.pk} value={cat.id} >
                       {cat.category_name}
                     </MenuItem>
                   ))}
+                </Select> */}
+                <InputLabel id="demo-simple-select-helper-label">Category</InputLabel>
+                  <Select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  label="Category"
+                  >
+                  <MenuItem value={category}>
+                    {category}
+                  </MenuItem>
+                  {categories.map((cat) => (
+                    <MenuItem key={cat.pk} value={cat.id} >
+                      {cat.category_name}
+                    </MenuItem>
+                     ))}
                 </Select>
+
+
               </FormControl>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Status</InputLabel>
