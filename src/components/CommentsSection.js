@@ -83,6 +83,28 @@ useEffect(() => {
     }
   };
 
+  const handleCommentDeletion = async (commentId) => {
+    const storedToken = localStorage.getItem('token');
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}comment/update_comment/${commentId}/`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${storedToken}`
+        },
+      });
+
+      if (response.ok) {
+        const updatedComments = comments.filter((comment) => comment.id !== commentId);
+        setComments(updatedComments);
+      } else {
+        console.error('Error deleting comment');
+      }
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
+
   return (
     
     <div>
@@ -137,6 +159,7 @@ useEffect(() => {
                   top: 0,
                   right: 0,
                 }}
+                onClick={() => handleCommentDeletion(comment.id)}
                 >
                   <DeleteIcon />
                 </IconButton>
