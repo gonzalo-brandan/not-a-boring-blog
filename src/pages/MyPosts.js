@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Alert, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
-import DeleteButton from '../components/DeleteButton';
+import DeletePostButton from '../components/DeletePostButton';
 import HeroSection from '../components/HeroSection';
 import { useNavigate } from 'react-router-dom';
 import EditPostButton from '../components/EditPostButton';
@@ -74,7 +74,7 @@ export default function MyPosts() {
                   </CardContent>
                     </CardActionArea>
                   <CardActions sx={{gap: 2}}>
-                    <DeleteButton postId={post.id} onDeleteSuccess={() => handlePostDeleteSuccess(post.id)} />
+                    <DeletePostButton postId={post.id} onDeleteSuccess={() => handlePostDeleteSuccess(post.id)} />
                     <EditPostButton postId={post.id}/>
                   </CardActions>
                 </Card>
