@@ -162,7 +162,7 @@ function CommentsSection(props) {
                     aria-describedby="alert-dialog-description"
                   >
                     <DialogTitle id="alert-dialog-title">
-                      {"Are you sure you want to delete this post?"}
+                      {"Do you want to delete this comment?"}
                     </DialogTitle>
                     <DialogContent>
                       <DialogContentText id="alert-dialog-description">
