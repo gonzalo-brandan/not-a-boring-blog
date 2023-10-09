@@ -33,7 +33,7 @@ function Header() {
         sx={{  justifyContent: 'space-evenly', overflowX: 'auto', mt: 2}}
       >
         {section.map((section) => (
-          <Chip label={section.category_name} variant="outlined" color="primary" onClick={() => handleClick(section.category_name)} />
+          <Chip key={section.category_name} label={section.category_name} variant="outlined" color="primary" onClick={() => handleClick(section.category_name)} />
         ))}
       </Toolbar>
     </React.Fragment>

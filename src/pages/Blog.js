@@ -13,12 +13,12 @@ import OpenIconSpeedDial from '../components/OpenIconSpeedDial'
 const defaultTheme = createTheme();
 
 export default function Blog() {
-  const [posts1, setPosts1] = useState([]);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     fetchPosts()
       .then((response) => {
-        setPosts1(response.data);
+        setPosts(response.data);
       })
       .catch((error) => {
         console.error("Error fetching posts:", error);
@@ -33,8 +33,8 @@ export default function Blog() {
         <Header title="Not Boring Blog" />
         <main>
           <Grid sx={{mt: 1}} container spacing={4}>
-            {posts1.map((posts1) => (
-              <FeaturedPost key={posts1.title}   linkText={'Continue reading…'} image={'https://source.unsplash.com/random?wallpapers'} post={posts1} />
+            {posts.map((post) => (
+              <FeaturedPost key={post.id}   linkText={'Continue reading…'} image={'https://source.unsplash.com/random?wallpapers'} post={post} />
               ))
             }
           </Grid>
