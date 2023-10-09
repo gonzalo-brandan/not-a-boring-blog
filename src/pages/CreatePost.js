@@ -17,12 +17,12 @@ const defaultTheme = createTheme();
 
 export default function CreatePost() {
   const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [body, setBody] = useState('');
-  const [status, setStatus] = useState([]);
-  const [minRead, setMinRead] = useState([]);
+  const [status, setStatus] = useState('');
+  const [minRead, setMinRead] = useState('');
 
 
   const navigate = useNavigate();
@@ -167,7 +167,7 @@ export default function CreatePost() {
                   onChange={(e) => setCategory(e.target.value)}
                 >
                   {categories.map((cat) => (
-                    <MenuItem key={cat.pk} value={cat.id}>
+                    <MenuItem key={cat.id} value={cat.id}>
                       {cat.category_name}
                     </MenuItem>
                   ))}
