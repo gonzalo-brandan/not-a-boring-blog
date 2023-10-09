@@ -48,6 +48,7 @@ export default function MyPosts() {
           title="Your Posts"
           description="Manage and view your posts. Add, edit, or delete posts as needed."
           primaryButtonText="Add New Post"
+          hrefPrimaryButton='/create_post'
         />
           <Grid container spacing={4}>
             {posts.map((post) => (

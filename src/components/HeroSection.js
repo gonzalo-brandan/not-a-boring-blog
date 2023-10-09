@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-const HeroSection = ({ title, description, primaryButtonText, secondaryButtonText }) => {
+const HeroSection = ({ title, description, hrefPrimaryButton, primaryButtonText, secondaryButtonText }) => {
   return (
     <Box
       sx={{
@@ -34,7 +34,7 @@ const HeroSection = ({ title, description, primaryButtonText, secondaryButtonTex
           justifyContent="center"
         >
           {primaryButtonText && (
-            <Button variant="contained" color="primary">
+            <Button href={hrefPrimaryButton} variant="contained" color="primary">
               {primaryButtonText}
             </Button>
           )}
