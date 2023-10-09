@@ -50,7 +50,7 @@ export default function EditPost() {
         const descriptionText = postData.description
         const minReadTime = postData.min_read
         const status = postData.status
-        const category = [postData.category]
+        const category = postData.category
         setBody(bodyText);
         setTitle(titleText)
         setDescription(descriptionText)
@@ -76,13 +76,12 @@ export default function EditPost() {
 
     const postData = {
       title: title,
-      category: [category],
+    category: [category],
       status: status,
       min_read: minRead,
       description: description,
       body: body,
     };
-
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}post/post_detail/${postId}/`, {
         method: 'PUT',
@@ -101,8 +100,8 @@ export default function EditPost() {
     } catch (error) {
       console.error('Error creating post:', error);
     }
-    navigate('/');
   };
+  
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -165,8 +164,8 @@ export default function EditPost() {
                 onChange={(e) => setMinRead(e.target.value)}
               />
               <FormControl fullWidth>
-                {/* <InputLabel id="demo-simple-select-label">Category</InputLabel> */}
-                {/* <Select
+                {/* <InputLabel id="demo-simple-select-label">Category</InputLabel> 
+                <Select
                   labelId="demo-simple-select-label"
                   id="category"
                   defaultValue={category}
@@ -182,12 +181,13 @@ export default function EditPost() {
                 <InputLabel id="demo-simple-select-helper-label">Category</InputLabel>
                   <Select
                   value={category}
+                  id="category"
                   onChange={(e) => setCategory(e.target.value)}
                   label="Category"
                   >
-                  <MenuItem value={category}>
+                  {/* <MenuItem value={category}>
                     {category}
-                  </MenuItem>
+                  </MenuItem> */}
                   {categories.map((cat) => (
                     <MenuItem key={cat.pk} value={cat.id} >
                       {cat.category_name}
