@@ -56,7 +56,7 @@ function FeaturedPost(props) {
    
     </CardContent> 
     <CardContent sx={{ display: 'flex',  flexDirection: 'row', gap: '0.5rem'}}>
-       <Chip  label={post.category} />
+       <Chip  label={post.category_names} />
        <Chip  label={post.created_at} />
       <Chip 
        avatar={<Avatar alt="Author" src="/static/images/avatar/1.jpg" />}
@@ -88,12 +88,12 @@ function FeaturedPost(props) {
 
 FeaturedPost.propTypes = {
   post: PropTypes.shape({
-    date: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    imageLabel: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired,
+    date: PropTypes.string,
+    description: PropTypes.string,
+    image: PropTypes.string,
+    imageLabel: PropTypes.string,
+    title: PropTypes.string,
+  }),
 };
 
 export default FeaturedPost;

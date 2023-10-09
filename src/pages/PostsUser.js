@@ -108,7 +108,7 @@ export default function PostsUser(props) {
                         justifyContent: 'left',
                       }}
                     >
-                      <Chip label={post.category} />
+                      <Chip label={post.category_names} />
                       <Chip label={post.created_at} />
                       <Chip
                         avatar={
