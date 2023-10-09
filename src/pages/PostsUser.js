@@ -20,6 +20,7 @@ import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 import { Box, Button, Stack } from '@mui/material';
+import HeroSection from '../components/HeroSection';
 
 const defaultTheme = createTheme();
 
@@ -29,7 +30,6 @@ export default function PostsUser(props) {
     const [posts, setPosts] = useState([]);
     const { username } = useParams();
 
-
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BACKEND_BASE_URL}post/user_posts/${username}/`)
           .then(response => {
@@ -38,43 +38,23 @@ export default function PostsUser(props) {
           .catch(error => {
             console.error('Error fetching post data:', error);
           });
+
+          setTimeout(() => {
+            if (posts.length === 0) {
+              setShowNoPostsText(true);
+            }
+          }, 2000);
+
       }, [username]);
+
+      const [showNoPostsText, setShowNoPostsText] = useState(false);
+
       return (
         <div>
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
           <Container maxWidth="lg">
-          <Box
-          sx={{
-            bgcolor: 'background.paper',
-            pt: 8,
-            pb: 6,
-          }}
-        >
-          <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
-              gutterBottom
-            >
-              Posts by {username}
-            </Typography>
-            <Typography variant="h5" align="center" color="text.secondary" paragraph>
-            Explore {username}'s collection of content.
-            </Typography>
-            <Stack
-              sx={{ pt: 4 }}
-              direction="row"
-              spacing={2}
-              justifyContent="center"
-            >
-              <Button variant="contained">Main call to action</Button>
-              <Button variant="outlined">Secondary action</Button>
-            </Stack>
-          </Container>
-        </Box>
+          <HeroSection title={`Posts by ${username}`} description={`Explore ${username}'s collection of content.`}/>          
         {posts.length > 0 ? (
         <Grid container spacing={2}>
             {posts.map((post) => (
@@ -134,20 +114,35 @@ export default function PostsUser(props) {
               pt: 8,
               pb: 6,
             }}
-          >
+            >
             <Container maxWidth="sm">
-              <Typography
-                component="h2"
-                variant="h3"
-                align="center"
-                color="text.primary"
-                gutterBottom
-              >
-                {username} has not posted anything yet.
-              </Typography>
+              {showNoPostsText && (
+                <Stack
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="center"
+                  spacing={4} // Adjust spacing as needed
+                >
+                  <Typography
+                    component="h2"
+                    variant="h5"
+                    align="center"
+                    color="text.secondary"
+                    gutterBottom
+                  >
+                    No posts created by {username} to the date.
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    href={`/users/`}
+                  >
+                    Go back to users list
+                  </Button>
+                </Stack>
+              )}
             </Container>
-          </Box>
-
+            </Box>
             )}
           </Container>
 
