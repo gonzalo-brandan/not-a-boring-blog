@@ -58,7 +58,7 @@ export default function Users() {
       <CssBaseline />
       <main>
       <HeroSection title='Explore Our Community' description='Meet our diverse community of users'/>
-        <Container sx={{ py: 8 }} maxWidth="md">
+        <Container sx={{ py: 1 }} maxWidth="md">
           <Grid container spacing={4}>
             {users.map((user) => (
               <Grid item key={user.id} xs={12} sm={6} md={4}>
