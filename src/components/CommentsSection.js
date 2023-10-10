@@ -9,7 +9,7 @@ import AuthService from '../components/AuthService';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
-import DeleteCommentButton from './DeleteCommentButton';
+import DeleteCommentButton from './ui/buttons/DeleteCommentButton';
 
 function CommentsSection(props) {
   const [newComment, setNewComment] = useState('');

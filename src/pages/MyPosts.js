@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Alert, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
-import DeletePostButton from '../components/DeletePostButton';
+import DeletePostButton from '../components/ui/buttons/DeletePostButton';
 import HeroSection from '../components/HeroSection';
 import { useNavigate } from 'react-router-dom';
-import EditPostButton from '../components/EditPostButton';
+import EditPostButton from '../components/ui/buttons/EditPostButton';
 
 const defaultTheme = createTheme();
 

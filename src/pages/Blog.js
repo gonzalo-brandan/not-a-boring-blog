@@ -7,7 +7,7 @@ import Header from '../components/Header';
 import FeaturedPost from '../components/FeaturedPost';
 import { useState, useEffect } from 'react';
 import { fetchPosts } from '../components/fetchPosts';
-import OpenIconSpeedDial from '../components/OpenIconSpeedDial'
+import OpenIconSpeedDial from '../components/ui/buttons/OpenIconSpeedDial'
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();

@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import AuthService from '../components/AuthService';import { fetchPosts } from '../components/fetchPosts';
 
-import OpenIconSpeedDial from '../components/OpenIconSpeedDial'
+import OpenIconSpeedDial from '../components/ui/buttons/OpenIconSpeedDial'
 
 const defaultTheme = createTheme();
 
