@@ -45,10 +45,10 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  description: PropTypes.arrayOf(PropTypes.string),
+  description: PropTypes.string,
   title: PropTypes.string,
   author: PropTypes.string,
-  category: PropTypes.string,
+  category: PropTypes.array,
 };
 
 export default Main;
