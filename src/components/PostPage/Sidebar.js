@@ -40,33 +40,26 @@ function Sidebar(props) {
         Related Posts
       </Typography>      
       {relatedPosts.slice(0, 5).map((relatedPost) => (
-  <RelatedPostCard
-    post={relatedPost}
-    title={relatedPost.title}
-    author={relatedPost.author}
-  />
-  
-  ))}
-  
+        <RelatedPostCard
+        key={relatedPost.id}
+          post={relatedPost}
+          title={relatedPost.title}
+          author={relatedPost.author}
+        />
+      ))}
     </Grid>
   );
 }
 
 Sidebar.propTypes = {
-  archives: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   social: PropTypes.arrayOf(
     PropTypes.shape({
       icon: PropTypes.elementType,
-      name: PropTypes.string.isRequired,
+      name: PropTypes.string,
     }),
-  ).isRequired,
-  title: PropTypes.string.isRequired,
+  ),
+  title: PropTypes.string,
 };
 
 export default Sidebar;
