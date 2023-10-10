@@ -93,13 +93,14 @@ export default function EditPost() {
       });
 
       if (response.ok) {
-        console.log('Post created successfully');
+        console.log('Post updated successfully');
       } else {
-        console.error('Error creating post');
+        console.error('Error updating post');
       }
     } catch (error) {
-      console.error('Error creating post:', error);
+      console.error('Error updating post:', error);
     }
+    navigate('/')
   };
   
   return (
