@@ -11,6 +11,7 @@ import axios from 'axios';
 import PasswordField from '../components/PasswordField';
 import ChangePasswordButton from '../components/ui/buttons/ChangePasswordButton';
 import UpdateBioButton from '../components/ui/buttons/UpdateBioButton'
+import UploadImageButton from '../components/ui/buttons/UploadImageButton'
 
 const defaultTheme = createTheme();
 
@@ -69,6 +70,7 @@ export default function CreatePost() {
               Here you can see, add or edit your information.
             </Typography>
             <Stack direction="column" spacing={4} justifyContent="center">
+              <UploadImageButton />
               <PasswordField
                 name="oldPassword"
                 label="Old Password"
