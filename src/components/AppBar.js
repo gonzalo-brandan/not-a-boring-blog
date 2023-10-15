@@ -50,6 +50,7 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
   // const { currentUser } = props;
+  const is_moderator = localStorage.getItem('is_moderator');
 
   return (
     <AppBar position="static">
@@ -140,6 +141,9 @@ function ResponsiveAppBar() {
                 {page.name}
               </Button>
             ))}
+          {currentUser && is_moderator ? (
+            <Button color="inherit" href="/moderator_panel">Moderator Panel</Button>
+          ) : null}
           </Box>
           {!currentUser && (
             <div>

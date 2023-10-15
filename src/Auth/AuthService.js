@@ -15,6 +15,7 @@ const AuthService = {
         if (response.data.token) {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('username', response.data.username);
+            localStorage.setItem('is_moderator', response.data.role.is_moderator);
 
         }
         return response.data;
