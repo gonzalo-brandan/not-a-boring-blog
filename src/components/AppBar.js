@@ -15,7 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 
 import AuthService from './AuthService';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -30,10 +30,13 @@ const settings = [ 'Dashboard'];
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  
   const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser);
-  const navigate = useNavigate();
+  const [moderator, setModerator] = useState(false)
 
+  useEffect(() => {
+    const isModerator = localStorage.getItem('is_moderator') === 'true';
+    setModerator(isModerator);
+  }, []);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -50,8 +53,6 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
   // const { currentUser } = props;
-  const is_moderator = localStorage.getItem('is_moderator');
-
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -141,9 +142,9 @@ function ResponsiveAppBar() {
                 {page.name}
               </Button>
             ))}
-          {currentUser && is_moderator ? (
+          {moderator && (
             <Button color="inherit" href="/moderator_panel">Moderator Panel</Button>
-          ) : null}
+          )}
           </Box>
           {!currentUser && (
             <div>
