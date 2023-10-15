@@ -12,17 +12,19 @@ import { useState, useEffect } from 'react';
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import InputFileUpload from '../components/ui/buttons/UploadImageButton';
 
 const defaultTheme = createTheme();
 
 export default function CreatePost() {
-  const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState('');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [body, setBody] = useState('');
-  const [status, setStatus] = useState('');
-  const [minRead, setMinRead] = useState('');
+    const [categories, setCategories] = useState([]);
+    const [category, setCategory] = useState('');
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [body, setBody] = useState('');
+    const [status, setStatus] = useState('');
+    const [minRead, setMinRead] = useState('');
+    const [image, setImage] = useState(null);
 
 
   const navigate = useNavigate();
@@ -42,6 +44,13 @@ export default function CreatePost() {
     event.preventDefault();
 
     const formData = new FormData(event.target);
+    formData.append('image', image); // Append the file to the FormData
+    formData.append('title', title); // Add other form fields as needed
+    formData.append('category', category);
+    formData.append('status', status);
+    formData.append('min_read', minRead);
+    formData.append('description', description);
+    formData.append('body', body);
     const storedToken = localStorage.getItem('token');
 
     if (!category) {
@@ -56,16 +65,19 @@ export default function CreatePost() {
       min_read: minRead,
       description: description,
       body: body,
+      image: image
     };
 
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}post/post_create/`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          // 'Content-Type': 'application/json',
           Authorization: `Token ${storedToken}`,
         },
-        body: JSON.stringify(postData),
+        // body: JSON.stringify(postData),
+        body: formData,
+
       });
 
       if (response.ok) {
@@ -76,7 +88,7 @@ export default function CreatePost() {
     } catch (error) {
       console.error('Error creating post:', error);
     }
-    navigate('/');
+    // navigate('/');
   };
 
   return (
@@ -146,7 +158,12 @@ export default function CreatePost() {
                 value={body}
                 onChange={(e) => setBody(e.target.value)}
               />
-              <TextField
+              <InputFileUpload 
+                value={image}
+                onChange={setImage}
+                label="Image"
+              />
+                            <TextField
                 id="outlined-multiline-title"
                 label="Minutes for reading"
                 multiline
