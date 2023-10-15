@@ -18,7 +18,13 @@ function CommentsSection(props) {
   const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
   const [open, setOpen] = useState(false);
   const [commentIdToDelete, setCommentIdToDelete] = useState(null); // State to store comment ID to delete
-  const isModerator = localStorage.getItem('is_moderator');
+  const [moderator, setModerator] = useState(false)
+
+  useEffect(() => {
+    const isModerator = localStorage.getItem('is_moderator') === 'true';
+    setModerator(isModerator);
+  }, []);
+
   const handleClickOpen = (commentId) => {
     setCommentIdToDelete(commentId); // Set the comment ID to delete
     setOpen(true);
@@ -105,7 +111,29 @@ function CommentsSection(props) {
     }
   };
 
-  console.log(localStorage.is_moderator)
+  const handleCommentDeletionModerator = async () => {
+    const storedToken = localStorage.getItem('token');
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}comment/moderator_rm_comment/${commentIdToDelete}/`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${storedToken}`
+        },
+      });
+
+      if (response.ok) {
+        const updatedComments = comments.filter((comment) => comment.id !== commentIdToDelete);
+        setComments(updatedComments);
+        handleClose();
+      } else {
+        console.error('Error deleting comment');
+      }
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
+
   return (
     <div>
       <Paper elevation={0} sx={{ p: 2, bgcolor: 'grey.200', mt: 3 }}>
@@ -143,7 +171,7 @@ function CommentsSection(props) {
                   secondary={comment.body}
                 />
               </ListItem>
-              {localStorage.username === comment.author_username || isModerator ? (
+              {moderator ? (
                 <div>
                   <IconButton
                     aria-label="delete"
@@ -172,13 +200,46 @@ function CommentsSection(props) {
                     </DialogContent>
                     <DialogActions>
                       <Button variant="outlined" onClick={handleClose}>Cancel</Button>
-                      <Button variant="outlined" color="error" onClick={handleCommentDeletion} autoFocus>Delete</Button>
+                      <Button variant="outlined" color="error" onClick={handleCommentDeletionModerator} autoFocus>Delete</Button>
                     </DialogActions>
                   </Dialog>
                 </div>
-              ) : (null)}
+              ) : localStorage.username === comment.author_username  && (
+                <div>
+                <IconButton
+                  aria-label="delete"
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                  }}
+                  onClick={() => handleClickOpen(comment.id)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"Do you want to delete this comment?"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      This is an irreversible action.
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button variant="outlined" onClick={handleClose}>Cancel</Button>
+                    <Button variant="outlined" color="error" onClick={handleCommentDeletion} autoFocus>Delete</Button>
+                  </DialogActions>
+                </Dialog>
+              </div>
+              )}
               <List>
-                {comment.replies && comment.replies.map((reply) => (
+                {/* {comment.replies && comment.replies.map((reply) => (
                   <ListItem key={reply.id} alignItems="center" disableGutters>
                     <ListItemAvatar>
                       <Avatar alt="User" src="/user-avatar.jpg" />
@@ -188,7 +249,7 @@ function CommentsSection(props) {
                       secondary={reply.body}
                     />
                   </ListItem>
-                ))}
+                ))} */}
               </List>
             </List>
           </Card>
