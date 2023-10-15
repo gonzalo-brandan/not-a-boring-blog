@@ -18,7 +18,7 @@ function CommentsSection(props) {
   const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
   const [open, setOpen] = useState(false);
   const [commentIdToDelete, setCommentIdToDelete] = useState(null); // State to store comment ID to delete
-
+  const isModerator = localStorage.getItem('is_moderator');
   const handleClickOpen = (commentId) => {
     setCommentIdToDelete(commentId); // Set the comment ID to delete
     setOpen(true);
@@ -105,6 +105,7 @@ function CommentsSection(props) {
     }
   };
 
+  console.log(localStorage.is_moderator)
   return (
     <div>
       <Paper elevation={0} sx={{ p: 2, bgcolor: 'grey.200', mt: 3 }}>
@@ -142,7 +143,7 @@ function CommentsSection(props) {
                   secondary={comment.body}
                 />
               </ListItem>
-              {localStorage.username === comment.author_username && (
+              {localStorage.username === comment.author_username || isModerator ? (
                 <div>
                   <IconButton
                     aria-label="delete"
@@ -175,7 +176,7 @@ function CommentsSection(props) {
                     </DialogActions>
                   </Dialog>
                 </div>
-              )}
+              ) : (null)}
               <List>
                 {comment.replies && comment.replies.map((reply) => (
                   <ListItem key={reply.id} alignItems="center" disableGutters>
