@@ -12,6 +12,7 @@ import MyAccount from './pages/MyAccount'
 import MyPosts from './pages/MyPosts'
 import Layout from './Layout';
 import EditPost from './pages/EditPost'
+import ModeratorPanel from './pages/ModeratorPanel'
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/myaccount" element={<MyAccount />} />
           <Route path="/myposts" element={<MyPosts />} />
           <Route path="/edit_post/:postId" element={<EditPost />} />
+          <Route path="/moderator_panel" element={<ModeratorPanel />} />
         </Routes>
       </Layout>
     </Router>
