@@ -1,83 +1,113 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <a href="https://github.com/not-a-boring-blog-frontend/vwc-site/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square" alt="License: MIT" />
+  </a>
+  <a href="https://github.com/not-a-boring-blog-frontend/vwc-site/blob/master/.github/contributing.md">
+    <img src="https://img.shields.io/badge/contributions-welcome-orange.svg?style=flat-square" alt="Contributions Welcome" />
+  </a>
+</p>
 
-## Available Scripts
+# Welcome to Not a Boring Blog :tada:
 
-In the project directory, you can run:
+Hello, fellow bloggers! We're thrilled to introduce you to Not a Boring Blog. This platform is more than just a blog; it's a collaborative space where users sharpen their knowledge about their favourite topics, and our community can actively participate in CRUD operations (Create, Read, Update, Delete) to enhance their coding skills.  🚀
 
-### `npm start`
+## What's Under The Hood 🧰
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Our app is powered by a robust technology stack that includes:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Frontend:
+React.js
+Material UI
+JavaScript
 
-### `npm test`
+Backend:
+Python
+Django
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Our Mission :dart:
 
-### `npm run build`
+1. **Empower Writers**: We offer a platform for users to share their stories, knowledge and perspectives about their favourites topics.
+  
+2. **Ever-Evolving Platform**: We continuously add features to keep our platform relevant and user-friendly.
+  
+3. **Learn By Doing**: We encourage our community to actively participate in CRUD operations (Create, Read, Update, Delete) to enhance their coding skills while contributing to our project's growth.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started 🚀
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To get a local copy up and running, you'll need a few things installed on your machine.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Installation Steps :wrench:
 
-### `npm run eject`
+Fire up your terminal and run:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```sh
+$ git clone https://github.com/gonzalo-brandan/not-a-boring-blog-frontend.git
+$ cd backend
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Create, activate a virtual environment, and install requirements.txt
+```sh
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+```
+Create a .env file with the following environmental variables:
+> export SECRET_KEY='any-key'
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+And then source it with :
+```sh
+$ source .env
+```
 
 
-# not-a-boring-blog-frontend
+Run python3 manage.py migrate <b>if you use default database</b> to create the tables in the database, otherwise execute this step at the end. Run the server 
+```sh
+$ python3 manage.py migrate
+```
+Run the server
+```sh
+$ python3 manage.py runserver
+```
 
-npm install @mui/material @emotion/react @emotion/styled
-npm install @mui/icons-material
-npm install axios
-npm install markdown-to-jsx
-npm install bootstrap
-npm install react-router-dom
+If you want to use the create post functionality, you have to create a 'Category' first. Only moderator or admins can do that. Open a new terminal or split the actual.
 
-npm install bootstrap --save
-npm install markdown-to-jsx --save
+Create a Super user
+```sh
+$ python3 manage.py createsuperuser
+```
+and choose your credentials.
+
+Navigate to the admin console and log in with the super user credentials.
+http://127.0.0.1:8000/admin/ 
+Categorys -> Add
+Choose a category name about which topic do you want to post, for example: React. 
+Save. Create as many as you like.
+
+Go back to the project. 
+
+In a new terminal
+
+Go to the frontend
+```sh
+$ cd ..
+```
+
+create a .env and add the following enviromental variable:
+> REACT_APP_BACKEND_BASE_URL='http://127.0.0.1:8000/'
+
+
+```sh
+$ npm i react-scripts
+$ npm run start
+```
+
+And boom! Navigate to `http://localhost:3000/` to see the app.
+
+## Roadmap 🗺️
+
+Curious about upcoming features? Check our [Milestone](https://github.com/gonzalo-brandan/not-a-boring-blog-frontend/milestones).
+
+## License :scroll:
+
+This project is under the MIT License.
