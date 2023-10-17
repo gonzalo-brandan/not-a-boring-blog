@@ -14,16 +14,19 @@ Hello, fellow bloggers! We're thrilled to introduce you to Not a Boring Blog. Th
 
 ## What's Under The Hood 🧰
 
-Our app is powered by a robust technology stack that includes:
+Frontend
+- React.js
+- Material UI
+- JavaScript
 
-Frontend:
-React.js
-Material UI
-JavaScript
+*Frontend developed by Gonzalo Brandan*
 
-Backend:
-Python
-Django
+Backend
+
+- Python
+- Django
+
+*Backend developed by Alex Serban, Tetiana Hrybach, Dejan Brnda*
 
 ### Our Mission :dart:
 
@@ -70,19 +73,29 @@ Run the server
 $ python3 manage.py runserver
 ```
 
-If you want to use the create post functionality, you have to create a 'Category' first. Only moderator or admins can do that. Open a new terminal or split the actual.
+## Adding Categories in Admin Console (Necessary if you want to create posts)
 
 Create a Super user
 ```sh
 $ python3 manage.py createsuperuser
 ```
-and choose your credentials.
 
-Navigate to the admin console and log in with the super user credentials.
-http://127.0.0.1:8000/admin/ 
-Categorys -> Add
-Choose a category name about which topic do you want to post, for example: React. 
-Save. Create as many as you like.
+To add categories in the admin console, follow these steps:
+
+1. Navigate to the admin console by opening a web browser and visiting [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/).
+
+2. Log in using superuser credentials.
+
+3. Once logged in, go to the "Categorys" section.
+
+4. Select "Add" to create a new category.
+
+5. Choose a category name that reflects the topic for which you want to post. For example, you can name it "React."
+
+6. Save the category.
+
+7. You can create as many categories as needed, each representing a different topic for your posts.
+
 
 Go back to the project. 
 
