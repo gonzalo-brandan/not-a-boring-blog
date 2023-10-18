@@ -1,9 +1,9 @@
 
 <p align="center">
-  <a href="https://github.com/not-a-boring-blog-frontend/vwc-site/blob/master/LICENSE">
+  <a href="https://github.com/not-a-boring-blog/vwc-site/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square" alt="License: MIT" />
   </a>
-  <a href="https://github.com/not-a-boring-blog-frontend/vwc-site/blob/master/.github/contributing.md">
+  <a href="https://github.com/not-a-boring-blogd/vwc-site/blob/master/.github/contributing.md">
     <img src="https://img.shields.io/badge/contributions-welcome-orange.svg?style=flat-square" alt="Contributions Welcome" />
   </a>
 </p>
@@ -45,7 +45,7 @@ To get a local copy up and running, you'll need a few things installed on your m
 Fire up your terminal and run:
 
 ```sh
-$ git clone https://github.com/gonzalo-brandan/not-a-boring-blog-frontend.git
+$ git clone https://github.com/gonzalo-brandan/not-a-boring-blog.git
 $ cd backend
 ```
 
@@ -119,8 +119,8 @@ And boom! Navigate to `http://localhost:3000/` to see the app.
 
 ## Roadmap 🗺️
 
-Curious about upcoming features? Check our [Milestone](https://github.com/gonzalo-brandan/not-a-boring-blog-frontend/milestones).
+Curious about upcoming features? Check our [Milestone](https://github.com/gonzalo-brandan/not-a-boring-blog/milestones).
 
 ## License :scroll:
 
-This project is under the MIT License.
+This project is under the MIT License - see the [License](https://github.com/gonzalo-brandan/not-a-boring-blog/blob/main/LICENSE) for more details.
