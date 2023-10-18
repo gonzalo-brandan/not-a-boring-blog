@@ -103,7 +103,7 @@ In a new terminal
 
 Go to the frontend
 ```sh
-$ cd ..
+$ cd ../frontend
 ```
 
 create a .env and add the following enviromental variable:
